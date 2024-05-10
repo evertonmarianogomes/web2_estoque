@@ -19,6 +19,13 @@ const hello = () => {
             </div>
 
             <p>Página de testes</p>
+            <div className="card my-2">
+                <div className="card-body">
+                    <h3 className="card-title">Créditos</h3>
+                    <a href="https://www.flaticon.com/free-icons/pizza" title="pizza icons" target="__blank">Pizza icons created by Freepik - Flaticon</a>
+                </div>
+            </div>
+
 
             <button onClick={notify} className="btn btn-primary">Notify!</button>
             <hr />

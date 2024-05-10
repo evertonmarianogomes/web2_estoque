@@ -41,8 +41,13 @@ class HandleInertiaRequests extends Middleware
                 'appRelease' => env('APP_RELEASE'),
                 'appVersion' => env('APP_VERSION'),
                 'appFaIcon' => env('APP_FA_ICON'),
-                'appMode' => env('APP_ENV')
-            ]
+                'appMode' => env('APP_ENV'),
+                'appBranch' => env('APP_BRANCH')
+            ],
+            'flash' => [
+                'message' => fn () => $request->session()->get('message'),
+                'success' => fn () => $request->session()->get('success')
+            ],
         ]);
     }
 }

@@ -27,7 +27,6 @@ return [
     */
 
     'env' => env('APP_ENV', 'production'),
-    // 'env' => 'production',
 
     /*
     |--------------------------------------------------------------------------
@@ -81,7 +80,6 @@ return [
 
     'locale' => env('APP_LOCALE', 'en'),
 
-    'asset_url' => env('ASSET_URL', 'https://www.example.com'),
 
     'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),
 

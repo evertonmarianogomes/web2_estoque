@@ -1,9 +1,19 @@
 import React from "react";
-import { usePage, Link } from "@inertiajs/react";
+import { usePage, Link, router } from "@inertiajs/react";
 import DarkMode from "./Components/DarkMode";
+import { route } from "ziggy-js";
+
 
 const Login = () => {
     const { app } = usePage().props as any;
+
+    const onSubmitForm = (e: React.FormEvent) => {
+        e.preventDefault();
+        let data = new FormData(e.target as HTMLFormElement);
+
+        router.post(route('app.validateLogin'), data);
+    }
+
 
     return (
         <div className="container pt-3">
@@ -20,8 +30,7 @@ const Login = () => {
                         </header>
 
                         <hr />
-
-                        <form action="#" method="POST">
+                        <form onSubmit={onSubmitForm}>
                             <div className="mb-2">
                                 <label htmlFor="login" className="form-label">Login</label>
                                 <input type="text" className="form-control" id="login" name="login" required />
@@ -38,7 +47,7 @@ const Login = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
 
 
     );
