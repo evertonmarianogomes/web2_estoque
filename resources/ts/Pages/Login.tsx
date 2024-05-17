@@ -1,24 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { usePage, Link, router } from "@inertiajs/react";
 import DarkMode from "./Components/DarkMode";
 import { route } from "ziggy-js";
 
+import LoginLayout from "./Components/LoginLayout";
+
+
 
 const Login = () => {
     const { app } = usePage().props as any;
+    const [loginForm, setLoginForm] = useState({ login: '', password: '' });
+
+    const handleChange = (event: any) => {
+        const { name, value } = event.target;
+        setLoginForm((prevFormData) => ({ ...prevFormData, [name]: value }));
+    };
 
     const onSubmitForm = (e: React.FormEvent) => {
         e.preventDefault();
-        let data = new FormData(e.target as HTMLFormElement);
-
-        router.post(route('app.validateLogin'), data);
+        router.post(route('app.validateLogin'), loginForm);
     }
 
 
     return (
-        <div className="container pt-3">
+        < div className="container pt-3" >
             <div className="row justify-content-center">
-                <div className="card col-12 col-md-8 col-lg-6">
+                <div className="card col-12 col-md-8 col-lg-6 login-card">
                     <div className="card-body">
                         <header className="d-flex justify-content-between">
                             <div className="flex-grow-1">
@@ -33,12 +40,12 @@ const Login = () => {
                         <form onSubmit={onSubmitForm}>
                             <div className="mb-2">
                                 <label htmlFor="login" className="form-label">Login</label>
-                                <input type="text" className="form-control" id="login" name="login" required />
+                                <input type="text" className="form-control" id="login" name="login" required onChange={handleChange} />
                             </div>
 
                             <div className="mb-2">
                                 <label htmlFor="password" className="form-label">Senha</label>
-                                <input type="password" className="form-control" id="password" name="password" required />
+                                <input type="password" className="form-control" id="password" name="password" onChange={handleChange} />
                             </div>
 
 
@@ -48,9 +55,10 @@ const Login = () => {
                 </div>
             </div>
         </div >
-
-
     );
 }
+
+
+Login.layout = page => <LoginLayout children={page} />
 
 export default Login;

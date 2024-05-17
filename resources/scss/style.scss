@@ -2,3 +2,35 @@
 
 @import './_loader.scss';
 
+@import "../../node_modules/bootstrap/scss/variables";
+
+$bg_color: rgba(18, 20, 20, 0.35);
+
+.modal {
+    backdrop-filter: blur(10px) !important;
+}
+
+
+
+@include color-mode(dark) {
+    @include media-breakpoint-up(lg) {
+        .dropdown-menu.show {
+            background: $bg_color !important;
+            backdrop-filter: blur(20px) !important;
+            
+        }
+    }
+
+
+    .modal {
+        backdrop-filter: none !important;
+        .modal-content {
+            background-color: rgba(18, 20, 20, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.20) !important;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(20px) !important;
+        }
+    }
+
+    
+}

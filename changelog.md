@@ -1,9 +1,11 @@
 ## Changelog
 
 
-- v.1.00.1001-alpha1 (Branch main)
-    - Adicionado Favicon
-    - Corrigido bug dos arquivos de CSS e JS não carregarem no Modo de Produção
+- v.1.00.1001-alpha1 (Branch fn_login)
+    - Concluido função de alterar dados do usuário autenticado
+    - Uso de states nos forms
+    - Caixa "Sobre" - Efeito de transparência no Modo Escuro
+    - Caixa "Sobre" - Texto alterado
 
 
 - v1.00.1000-alpha1 (08.05.2024)

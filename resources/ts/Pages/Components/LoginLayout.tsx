@@ -2,13 +2,12 @@ import React, { useEffect } from 'react';
 import { Head, usePage } from '@inertiajs/react';
 import $ from 'jquery';
 import { ToastContainer, toast } from 'react-toastify';
-import Navbar from './Components/Navbar/Index';
 
-const Layout = ({ children, isLogin = false }) => {
-    const { app, user } = usePage().props as any;
-    const { title } = usePage().props as any;
-    const { flash } = usePage().props as any;
-    const { errors } = usePage().props;
+import '../../../scss/login.scss';
+
+
+export default function LoginLayout({ children }) {
+    const { title, flash, errors, app, user } = usePage().props as any;
 
     useEffect(() => {
         setTimeout(() => {
@@ -32,22 +31,19 @@ const Layout = ({ children, isLogin = false }) => {
 
     useEffect(function () {
         if (errors) {
-            Object.values(errors).map((error, index) => {
+            Object.values(errors).map((error: any, index) => {
                 toast.error(error, { className: 'custom-toast' });
             });
-
         }
+
     }, [errors]);
 
 
 
-
     return (
-        <>
+        <div className='custom-login'>
             <ToastContainer style={{ zIndex: 2 }} />
             <Head title={title} />
-
-            {(user != null) ? <Navbar user={user} app={app} /> : <></>}
 
             {children}
 
@@ -60,8 +56,7 @@ const Layout = ({ children, isLogin = false }) => {
                     <p>For testing purposes only. Version <span>{app.appVersion} ({app?.appBranch})</span></p>
                 </code>
             </div>
-        </>
-    );
-}
 
-export default Layout;
+        </div>
+    )
+}

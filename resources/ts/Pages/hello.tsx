@@ -1,6 +1,5 @@
 import React from "react";
 import { ToastContainer, toast } from 'react-toastify';
-import DarkMode from "./Components/DarkMode";
 import { Link } from "@inertiajs/react";
 
 
@@ -15,7 +14,6 @@ const hello = () => {
 
             <div className="d-flex justify-content-between mt-2">
                 <h2 className="flex-grow-1">HelloWorld</h2>
-                <DarkMode />
             </div>
 
             <p>Página de testes</p>
