@@ -10,7 +10,7 @@ export default function NavItems(props: any) {
 
     return (
         <Nav className="me-auto" navbar>
-            {(user_type == 1) && <NavItem><Link href='#' className='nav-link'>Usuários</Link></NavItem>}
+            {(user_type == 1) && <NavItem><Link href={route('users.index')} className='nav-link'>Usuários</Link></NavItem>}
 
             <NavItem><Link href='#' className='nav-link'>Estoque</Link></NavItem>
             <About app={props?.app} />

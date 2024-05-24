@@ -11,7 +11,6 @@ $bg_color: rgba(18, 20, 20, 0.35);
 }
 
 
-
 @include color-mode(dark) {
     @include media-breakpoint-up(lg) {
         .dropdown-menu.show {

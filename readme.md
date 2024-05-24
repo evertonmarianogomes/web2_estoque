@@ -24,7 +24,7 @@ $ composer install
     3.1 No arquivo `.env` altere os parametros de conexão de banco de dados de acordo com o seu ambiente
 
 4. Rode as migrations com `php artisan migrate:fresh` (Lembre-se de alterar o `.env`)
-5. Execute as seeders para criar um usuário com `php artisan db:seed`
+5. Execute as seeders para inserir dados no BD com `php artisan db:seed`
 6. Crie a chave da aplicação com `php artisan key:generate`
 7. Execute os comandos para iniciar o servidor de desenvolvimento
 

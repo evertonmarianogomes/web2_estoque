@@ -11,7 +11,7 @@ export default function NavEnd(props: any) {
                 <DropdownToggle nav caret> <i className="fas fa-user-circle"></i> {props?.user?.first_name} {props?.user?.last_name}
                 </DropdownToggle>
                 <DropdownMenu>
-                    <Link href={route('admin.editAuthUser')} className="dropdown-item">Editar dados</Link>
+                    <Link href={route('users.edit', props?.user)} className="dropdown-item">Editar dados</Link>
                     <Link href={route('app.helloWorld')} className="dropdown-item">HelloWorld</Link>
 
                     <DropdownItem divider />
