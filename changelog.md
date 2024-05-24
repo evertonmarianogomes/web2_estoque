@@ -1,5 +1,8 @@
 ## Changelog
 
+- v 1.00.1010-alpha1
+    -   CRUD de usuários finalizado
+    
 - v.1.00.1001-alpha1 (Branch main)
     - Concluido função de alterar dados do usuário autenticado
     - Uso de states nos forms
