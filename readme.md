@@ -1,4 +1,4 @@
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/) [![PHP License](https://img.shields.io/badge/php-%3E%3D8.1-blue)](https://www.php.net/) [![Version](https://img.shields.io/badge/Version-1.0.1025-lightgrey)](https://github.com/evertonmarianogomes/web2template)
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/) [![PHP License](https://img.shields.io/badge/php-%3E%3D8.1-blue)](https://www.php.net/) [![Version](https://img.shields.io/badge/Version-1.0.1030-lightgrey)](https://github.com/evertonmarianogomes/web2template)
 # Web 2 Estoque
 
 Web 2 Estoque (nome provisório) é um projeto com as funções de controle de estoque, vendas e relatórios financeiros.
