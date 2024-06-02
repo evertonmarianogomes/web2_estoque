@@ -6,11 +6,14 @@
 /storage/*.key
 /vendor
 /database/seeders/UserSeeder.php
+test.txt
+changelog.prod.md
+
 .env
 .env.backup
 .env.production
 .phpunit.result.cache
-.changelog.prod.md
+.composer.lock
 Homestead.json
 Homestead.yaml
 auth.json

@@ -1,5 +1,8 @@
 ## Changelog
 
+- v1.00.1026-alpha1 (fn_dev)
+    - Delete dos Produtos
+
 - v1.00.1025-alpha1 (fn_dev)
     - Crud de Categorias e Produtos (exceto Delete dos Produtos)
     - Upload de Imagens nos Produtos

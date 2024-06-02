@@ -34,9 +34,7 @@ export default function Edit(props: any) {
             router.post(route('products.update', { id: product.id }), data);
         }
 
-
     }
-
 
 
     const handleImageChange = (event) => {

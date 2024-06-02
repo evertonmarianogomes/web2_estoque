@@ -157,6 +157,11 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = Product::find($id);
+        $oldName = $product->image_url;
+        $product->delete();
+        Storage::delete('public/images/' . $oldName);
+
+        return redirect()->route('stock.index')->with('success', 'Produto excluido com sucesso');
     }
 }

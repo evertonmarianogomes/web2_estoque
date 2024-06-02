@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { usePage, router, Link } from "@inertiajs/react";
 import { Table } from "reactstrap";
 import moment from "moment";
 import { route } from 'ziggy-js';
+import alertify from 'alertifyjs';
+
+
 
 const Index = () => {
     const { products, categories } = usePage().props as any;
@@ -33,16 +36,23 @@ const Index = () => {
         }
     }
 
+
+    const deleteProduct = (id: any) => {
+        alertify.confirm('Excluir', 'Certeza que deseja excluir o produto?', function () {
+            router.delete(route('products.destroy', { id: id }), {
+                onFinish: () => {
+                    router.visit(route('stock.index'));
+                }
+            });
+        }, function () { return; });
+    }
+
     const searchByCategory = (id: any) => {
         if (id == 0) return products;
 
         return products.filter(obj => obj.category_id == id);
     }
 
-
-    useEffect(() => {
-        console.log('Products.tsx loaded');
-    }, []);
 
 
     return (<>
@@ -109,7 +119,7 @@ const Index = () => {
                                 <Link href={route('products.edit', item)} className="btn btn-primary"><i className="fas fa-edit"></i>
                                     <span className="d-none d-lg-inline"> Editar</span>
                                 </Link>
-                                <button className="btn btn-danger"><i className="fas fa-trash"></i>
+                                <button className="btn btn-danger" onClick={(e) => deleteProduct(item.id)}><i className="fas fa-trash"></i>
                                     <span className="d-none d-lg-inline"> Excluir</span>
                                 </button>
                             </th>
