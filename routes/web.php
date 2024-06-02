@@ -2,7 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AppController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductStockController;
+use App\Http\Controllers\SaleController;
+use App\Http\Controllers\StockController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\PreventBackHistory;
 
@@ -20,5 +25,11 @@ Route::prefix('admin')->middleware(['auth', PreventBackHistory::class])->group(f
 
     Route::get('/editAuthUser', [AppController::class, 'editAuthUser'])->name('admin.editAuthUser');
 
-    Route::resource('users', UserController::class);
+    Route::resources([
+        'users' => UserController::class,
+        'stock' => StockController::class,
+        'categories' => CategoryController::class,
+        'products' => ProductController::class,
+        'sales' => SaleController::class
+    ]);
 });

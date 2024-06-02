@@ -6,8 +6,20 @@
 
 $bg_color: rgba(18, 20, 20, 0.35);
 
-.modal {
+.modal, .ajs-modal {
     backdrop-filter: blur(10px) !important;
+}
+
+.circular--landscape { display: inline-block; position: relative; width: 200px; height: 200px; overflow: hidden; border-radius: 50%; } 
+
+.circular--landscape img { width: auto; height: 100%; margin-left: -50px; }
+
+.circular--square { border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%; }
+
+.tab-shadow {
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    
+    padding: 0 !important;
 }
 
 

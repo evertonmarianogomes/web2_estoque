@@ -10,9 +10,12 @@ export default function NavItems(props: any) {
 
     return (
         <Nav className="me-auto" navbar>
-            {(user_type == 1) && <NavItem><Link href={route('users.index')} className='nav-link'>Usuários</Link></NavItem>}
+            {(user_type == 1) && <NavItem><Link href={route('users.index')} className={
+                (route('users.index') == window.location.href || route('users.create') == window.location.href) ? 'nav-link active' : 'nav-link'
+            }>Usuários</Link></NavItem>}
 
-            <NavItem><Link href='#' className='nav-link'>Estoque</Link></NavItem>
+            <NavItem><Link href={route('stock.index')} className={route('stock.index') == window.location.href ? 'nav-link active' : 'nav-link'}>Estoque</Link></NavItem>
+            <NavItem><Link href={route('sales.index')} className={(route('sales.index') == window.location.href || route('sales.create') == window.location.href) ? 'nav-link active' : 'nav-link'}>Vendas</Link></NavItem>
             <About app={props?.app} />
         </Nav>
     );

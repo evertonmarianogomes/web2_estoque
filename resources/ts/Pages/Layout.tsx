@@ -49,7 +49,7 @@ const Layout = ({ children, isLogin = false }) => {
 
             {(user != null) ? <Navbar user={user} app={app} /> : <></>}
 
-            {children}
+        {children}
 
             <div className="container pt-5 text-center">
                 <div className="col-12 d-flex justify-content-center">

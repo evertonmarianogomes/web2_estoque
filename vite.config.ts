@@ -12,8 +12,12 @@ export default defineConfig({
     ],
 
     resolve: {
+        extensions: ['.js', '.ts', '.tsx', '.jsx', '.json' ],
         alias: {
             '@ziggy-js': 'vendor/tightenco/ziggy'
         }
-    }
+    },
+    optimizeDeps: {
+        exclude: ['js-big-decimal']
+      }
 });

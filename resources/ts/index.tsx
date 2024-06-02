@@ -8,7 +8,8 @@ import '../scss/__toast.scss';
 import '../scss/__loader.scss';
 import 'react-toastify/dist/ReactToastify.css';
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import 'alertifyjs/build/css/alertify.min.css';
+import 'alertifyjs/build/css/themes/default.min.css';
 
 createInertiaApp({
   title: title => `${title}`,
