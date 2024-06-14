@@ -127,7 +127,7 @@ class ProductController extends Controller
         $product->is_available = (int) $request->is_available;
 
         if ($request->hasFile('product_image')) {
-            $request->validate(['product_image' => 'required|file|mimes:jpeg,png,jpg,gif,svg|max:2048']);
+            $request->validate(['product_image' => 'required|file|mimes:jpeg,png,jpg,gif,svg|max:4196']);
 
             $oldName = $product->image_url;
             if ($oldName != 'noimage.png') Storage::delete('public/images/' . $oldName);

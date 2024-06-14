@@ -1,17 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { usePage, router, Link } from "@inertiajs/react";
 import { Table } from "reactstrap";
 import moment from "moment";
 import { route } from 'ziggy-js';
 import alertify from 'alertifyjs';
 
-
+import Pagination from "./Pagination";
 
 const Index = () => {
     const { products, categories } = usePage().props as any;
 
+
     const [productsList, setProductList] = useState(products);
     const [categoryList, setCategoryList] = useState(categories);
+
+    // Pagination.tsx Props
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 4;
+
+    // Calcula o índice dos itens exibidos na página atual
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = productsList.slice(indexOfFirstItem, indexOfLastItem);
+
+    const totalPages = Math.ceil(productsList.length / itemsPerPage);
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
 
     const updateList = () => {
         router.visit(route('stock.index'));
@@ -52,6 +68,7 @@ const Index = () => {
 
         return products.filter(obj => obj.category_id == id);
     }
+
 
 
 
@@ -106,9 +123,9 @@ const Index = () => {
                     {productsList?.length == 0 && <tr><td colSpan={8} className="text-center">Nenhum registro encontrado na base de dados</td></tr>}
 
 
-                    {productsList?.length > 0 && productsList.map((item, index) => (
+                    {productsList?.length > 0 && currentItems.map((item, index) => (
                         <tr key={index}>
-                            <td>{index + 1}</td>
+                            <td>{(currentPage == 1) ? currentPage + index : (indexOfFirstItem + index) + 1}</td>
                             <td className="w-sm-0 w-25">{item?.name}</td>
                             <td>{item?.price.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</td>
                             <td>{item?.quantity}</td>
@@ -127,6 +144,11 @@ const Index = () => {
                     ))}
                 </tbody>
             </Table>
+            <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+            />
         </div>
     </>);
 }

@@ -8,7 +8,7 @@
 /database/seeders/UserSeeder.php
 test.txt
 changelog.prod.md
-
+changelog.master.md
 .env
 .env.backup
 .env.production

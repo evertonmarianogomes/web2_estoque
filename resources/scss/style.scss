@@ -1,13 +1,13 @@
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
-
 @import './_loader.scss';
-
 @import "../../node_modules/bootstrap/scss/variables";
+
+@import './cashier.scss';
 
 $bg_color: rgba(18, 20, 20, 0.35);
 
 .modal, .ajs-modal {
-    backdrop-filter: blur(10px) !important;
+    backdrop-filter: blur(30px) !important;
 }
 
 .circular--landscape { display: inline-block; position: relative; width: 200px; height: 200px; overflow: hidden; border-radius: 50%; } 

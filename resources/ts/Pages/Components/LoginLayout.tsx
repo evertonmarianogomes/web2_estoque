@@ -3,7 +3,6 @@ import { Head, usePage } from '@inertiajs/react';
 import $ from 'jquery';
 import { ToastContainer, toast } from 'react-toastify';
 
-import '../../../scss/login.scss';
 
 
 export default function LoginLayout({ children }) {

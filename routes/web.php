@@ -13,8 +13,6 @@ use App\Http\Middleware\PreventBackHistory;
 
 Route::get('/', [AppController::class, 'login'])->name('app.home');
 
-Route::get('/HelloWorld', [AppController::class, 'HelloWorld'])->name('app.helloWorld')->middleware(PreventBackHistory::class);
-
 Route::post('/validate', [LoginController::class, 'validateLogin'])->name('app.validateLogin');
 
 Route::get('/notLoggedIn', [LoginController::class, 'notLoggedIn'])->name('admin.notLoggedIn');
@@ -32,4 +30,7 @@ Route::prefix('admin')->middleware(['auth', PreventBackHistory::class])->group(f
         'products' => ProductController::class,
         'sales' => SaleController::class
     ]);
+
+    // Payments Route
+    Route::post('/getPixCode', [AppController::class, 'getCode'])->name('pix.getCode');
 });

@@ -1,0 +1,27 @@
+@import "../../node_modules/bootstrap/scss/variables";
+
+
+
+.prod_td_image {
+    height: 8rem !important;
+    width: 8rem !important;
+}
+@include media-breakpoint-up(sm) {
+
+
+
+}
+
+@include color-mode(dark) {
+    .sale_product_header {
+        border-bottom: none;
+        padding-bottom: 0.3rem !important;
+    }
+
+    .product_body{
+        background-color: #1b1c1f;
+        margin: 0.4rem;
+        border-radius: 0.2rem;
+        border: 1px solid rgba(255, 255, 255, 0.20) !important;
+    }
+}
