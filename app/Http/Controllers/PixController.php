@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 class PixController
 {
-    private String $pixKey = 'dd4c05cb-189e-4fd0-80e9-11cf2dc274f3';
+    private String $pixKey;
+
+    function __construct()
+    {
+        $this->pixKey = env('APP_PIX_KEY');
+    }
 
     function formataCampo($id, $value)
     {

@@ -20,8 +20,8 @@ Route::get('/notLoggedIn', [LoginController::class, 'notLoggedIn'])->name('admin
 Route::prefix('admin')->middleware(['auth', PreventBackHistory::class])->group(function () {
     Route::get('/', [AppController::class, 'home'])->name('admin.index');
     Route::get('/logout', [LoginController::class, 'logout'])->name('admin.logout');
-
     Route::get('/editAuthUser', [AppController::class, 'editAuthUser'])->name('admin.editAuthUser');
+    // Route::get('/hello', [AppController::class, 'HelloWorld'])->name('admin.helloworld');
 
     Route::resources([
         'users' => UserController::class,

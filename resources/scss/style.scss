@@ -2,19 +2,25 @@
 @import './_loader.scss';
 @import "../../node_modules/bootstrap/scss/variables";
 
-@import './cashier.scss';
-
 $bg_color: rgba(18, 20, 20, 0.35);
 
+
+body {
+    height: 100vh;
+}
+
+div#app {
+    height: 100%;
+}
 .modal, .ajs-modal {
     backdrop-filter: blur(30px) !important;
 }
 
-.circular--landscape { display: inline-block; position: relative; width: 200px; height: 200px; overflow: hidden; border-radius: 50%; } 
+// .circular--landscape { display: inline-block; position: relative; width: 200px; height: 200px; overflow: hidden; border-radius: 50%; } 
 
-.circular--landscape img { width: auto; height: 100%; margin-left: -50px; }
+// .circular--landscape img { width: auto; height: 100%; margin-left: -50px; }
 
-.circular--square { border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%; }
+// .circular--square { border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%; }
 
 .tab-shadow {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
@@ -31,6 +37,12 @@ $bg_color: rgba(18, 20, 20, 0.35);
             
         }
     }
+
+    ._finish_sale_modal_body{
+        background-color: rgba(18, 20, 20, 1) !important;
+        border-radius: 0.4em !important;
+    }
+    
 
     .modal {
         backdrop-filter: blur(10px) !important;

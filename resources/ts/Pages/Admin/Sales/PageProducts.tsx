@@ -41,8 +41,6 @@ const PageProducts = (props) => {
         }
     }
 
-
-
     return (<>
         <h5>Produtos</h5>
 
@@ -61,21 +59,26 @@ const PageProducts = (props) => {
             <tbody>
                 {props.productList ? props.productList.map((item, index) => (
                     <tr key={index}>
-                        <td>{index + 1}</td>
-                        <td>{item?.name}</td>
-                        <td>{formatCurrency((item?.price * 100).toString())}</td>
-                        <td>{item?.quantity}</td>
-                        <td>
-                            <input type="number" min={0} max={item?.quantity} defaultValue={0} className="form-control col-2" id={`input${item?.id}`} />
-                        </td>
-                        <td>
-                            {item.quantity == 0 ? <span>Sem Estoque</span> : <button className="btn btn-primary" onClick={(e) => addProductCart(item?.id)}><i className="fas fa-plus"></i></button>}
+                        {item?.is_available ? <>
+                            <td>{index + 1}</td>
+                            <td>{item?.name}</td>
+                            <td>{formatCurrency((item?.price * 100).toString())}</td>
+                            <td>{item?.quantity}</td>
+                            <td>
+                                {item.quantity == 0 ? <>-</> : <>
+                                    <input type="number" min={0} max={item?.quantity} defaultValue={0} className="form-control col-2" id={`input${item?.id}`} />
+                                </>}
 
-                        </td>
+                            </td>
+                            <td>
+                                {item.quantity == 0 ? <span>Sem Estoque</span> : <button className="btn btn-primary" onClick={(e) => addProductCart(item?.id)}><i className="fas fa-plus"></i></button>}
+
+                            </td>
+                        </> : ''}
                     </tr>
-                )) : <tr><td colSpan={6} className="text-center">Nenhum registro encontrado</td></tr>}
+                )) : <tr><td colSpan={6} className="text-center">Nenhum registro encontrado na base de dados</td></tr>}
             </tbody>
-        </Table>
+        </Table >
     </>);
 }
 

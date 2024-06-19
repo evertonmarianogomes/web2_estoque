@@ -7,16 +7,17 @@ import { route } from 'ziggy-js'
 
 import ReactDOMServer from "react-dom/server";
 import alertify from 'alertifyjs';
+import PagePayment from "../Payments/PagePayment";
 
 
 const Create = ({ props }) => {
     const { products, app } = usePage().props as any;
-
     const [cart, setCart] = useState([]);
     const [total, setTotal] = useState(0.0);
     const [productList, setProductList] = useState(null);
+    const [payment, setPayment] = useState(false);
+    const [page, setPage] = useState('cashier');
 
-    const [pixCode, setPixCode] = useState(null);
 
     const deleteProduct = (id) => {
         let prodSel = cart.find(item => item.id == id);
@@ -39,10 +40,8 @@ const Create = ({ props }) => {
     }
 
 
-    const finishSale = async () => {
+    const getPixQRCode = async (total: any) => {
         let data = JSON.stringify({ amount: total });
-
-
         let resp = await fetch(route('pix.getCode'), {
             method: 'post',
             body: data,
@@ -54,15 +53,14 @@ const Create = ({ props }) => {
 
         let item = await resp.json();
 
-        let stringo = ReactDOMServer.renderToStaticMarkup(<>
+        alertify.alert(`${app.appName} - Pagamento`, ReactDOMServer.renderToString(<>
             <p>Pague {formatCurrency((total * 100).toString())} e confirme o pagamento clicando em "OK"</p>
             <img src={item?.qrCode}></img>
-        </>);
+        </>));
+    }
 
-
-        alertify.alert(`${app.appName} - Pagamento`, stringo);
-
-
+    const finishSale = () => {
+        setPayment(true);
     }
 
     useEffect(function () {
@@ -81,64 +79,70 @@ const Create = ({ props }) => {
 
     return (<>
         <div className="container-fluid pt-1">
-            <div className="col-12 d-flex flex-wrap gap-2">
-                <div className="col-12 col-lg-6">
-                    <div className="card card-body">
-                        {productList && <PageProducts productList={productList} setCart={setCart} cart={cart} setProductList={setProductList} />}
-                    </div>
 
-                </div>
-
-                <div className="col-12 col-lg">
-                    <div className="card">
-                        <div className="card-body">
-                            <h5>Carrinho</h5>
-                            <Table responsive hover striped>
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Produto</th>
-                                        <th>Qtd</th>
-                                        <th>Preço unitário</th>
-                                        <th>Total</th>
-                                        <th>Opções</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    {cart.length == 0 ? <tr><td colSpan={6} className="text-center">Adicione produtos no carrinho</td></tr>
-                                        : cart.map((item, index) => (
-                                            <tr key={index}>
-                                                <td>{index + 1}</td>
-                                                <td>{item?.name}</td>
-                                                <td>{item?.quantity}</td>
-                                                <td>{formatCurrency((item?.price * 100).toString())}</td>
-                                                <td>{formatCurrency((item?.total * 100).toString())}</td>
-                                                <td>
-                                                    <Button color="danger" onClick={(e) => deleteProduct(item.id)}><i className="fas fa-trash"></i></Button>
-                                                </td>
-                                            </tr>
-                                        ))
-                                    }
-                                </tbody>
-
-                                <tfoot>
-                                    <tr>
-                                        <td colSpan={7} className="text-center">
-                                            <h3 className="py-3">Total: {formatCurrency((total * 100).toString())}</h3>
-                                        </td>
-
-                                    </tr>
-                                </tfoot>
-                            </Table>
-                        </div>
-                        <div className="card-footer gap-2">
-                            <Button color="success" onClick={finishSale}>Finalizar Compra</Button>
-                            <Button color="secondary" onClick={() => resetCart()}>Resetar</Button>
+            {page == 'cashier' && <>
+                <div className="col-12 d-flex flex-wrap gap-2">
+                    <div className="col-12 col-lg-6">
+                        <div className="card card-body">
+                            {productList && <PageProducts productList={productList} setCart={setCart} cart={cart} setProductList={setProductList} />}
                         </div>
                     </div>
+
+                    <div className="col-12 col-lg">
+                        <div className="card">
+                            <div className="card-body">
+                                <h5>Carrinho</h5>
+                                <Table responsive hover striped>
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Produto</th>
+                                            <th>Qtd</th>
+                                            <th>Preço unitário</th>
+                                            <th>Total</th>
+                                            <th>Opções</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        {cart.length == 0 ? <tr><td colSpan={6} className="text-center">Adicione produtos no carrinho</td></tr>
+                                            : cart.map((item, index) => (
+                                                <tr key={index}>
+                                                    <td>{index + 1}</td>
+                                                    <td>{item?.name}</td>
+                                                    <td>{item?.quantity}</td>
+                                                    <td>{formatCurrency((item?.price * 100).toString())}</td>
+                                                    <td>{formatCurrency((item?.total * 100).toString())}</td>
+                                                    <td>
+                                                        <Button color="danger" onClick={(e) => deleteProduct(item.id)}><i className="fas fa-trash"></i></Button>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        }
+                                    </tbody>
+
+                                    <tfoot>
+                                        <tr>
+                                            <td colSpan={7} className="text-center">
+                                                <h3 className="py-3">Total: {formatCurrency((total * 100).toString())}</h3>
+                                            </td>
+
+                                        </tr>
+                                    </tfoot>
+                                </Table>
+                            </div>
+                            <div className="card-footer d-flex gap-2">
+                                <Button color="success" onClick={() => setPage('payment')} disabled={total == 0}>Finalizar Venda</Button>
+                                <Button color="secondary" onClick={() => resetCart()}>Resetar</Button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </>}
+
+
+            {page == 'payment' && <PagePayment handlePage={setPage} amount={total} />}
+
         </div>
     </>)
 }

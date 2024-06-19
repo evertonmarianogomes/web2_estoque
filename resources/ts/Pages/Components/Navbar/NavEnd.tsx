@@ -12,7 +12,7 @@ export default function NavEnd(props: any) {
                 </DropdownToggle>
                 <DropdownMenu>
                     <Link href={route('users.edit', props?.user)} className="dropdown-item">Editar dados</Link>
-                    <Link href={route('app.helloWorld')} className="dropdown-item">HelloWorld</Link>
+                    {/* <Link href={route('admin.helloworld')} className="dropdown-item">HelloWorld</Link> */}
 
                     <DropdownItem divider />
                     <Link href={route('admin.logout')} className="dropdown-item" onClick={props?.logout}>Logout</Link>

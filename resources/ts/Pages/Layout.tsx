@@ -46,12 +46,12 @@ const Layout = ({ children, isLogin = false }) => {
         <>
             <ToastContainer style={{ zIndex: 2 }} />
             <Head title={title} />
-
             {(user != null) ? <Navbar user={user} app={app} /> : <></>}
 
-        {children}
+            {children}
 
             <div className="container pt-5 text-center">
+
                 <div className="col-12 d-flex justify-content-center">
                     {app?.appMode === 'production' ? <div className='alert alert-warning col-6'><b>Aviso:</b> Modo de produção ativado</div> : ""}
                 </div>
@@ -60,6 +60,7 @@ const Layout = ({ children, isLogin = false }) => {
                     <p>For testing purposes only. Version <span>{app.appVersion} ({app?.appBranch})</span></p>
                 </code>
             </div>
+
         </>
     );
 }

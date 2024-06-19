@@ -1,9 +1,15 @@
 ## Changelog
 
+<<<<<<< Updated upstream
+- v.1.00.1036-alpha1 (fn_dev)
+  - Correções Menores
+
 - v.1.00.1035-alpha1 (fn_dev)
  - Adicionar e remover produtos do carrinho na tela de vendas
  - Removido fundo da tela de login
 
+=======
+>>>>>>> Stashed changes
 - v1.00.1026-alpha1 (fn_dev)
     - Delete dos Produtos
 
@@ -20,7 +26,6 @@
     - Uso de states nos forms
     - Caixa "Sobre" - Efeito no Modo Escuro
     - Caixa "Sobre" - Texto alterado
-
 
 - v1.00.1000-alpha1 (08.05.2024)
     - Primeiro commit do projeto
