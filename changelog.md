@@ -1,6 +1,6 @@
-## Changelog
+- v1.00.1037-alpha1 (fn_dev)
+  - commit
 
-<<<<<<< Updated upstream
 - v.1.00.1036-alpha1 (fn_dev)
   - Correções Menores
 
@@ -8,8 +8,6 @@
  - Adicionar e remover produtos do carrinho na tela de vendas
  - Removido fundo da tela de login
 
-=======
->>>>>>> Stashed changes
 - v1.00.1026-alpha1 (fn_dev)
     - Delete dos Produtos
 
