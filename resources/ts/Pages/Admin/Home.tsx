@@ -14,7 +14,7 @@ const Home = () => {
 
             <div className="card shadow-sm">
                 <div className="card-body">
-                    <h5 className="card-title">Vendas realizadas</h5>
+                    <h5 className="card-title">Ultimas vendas</h5>
                     <Table striped responsive hover>
                         <thead>
                             <tr>

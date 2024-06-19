@@ -1,4 +1,6 @@
-## Changelog
+- v.1.00.1040-alpha1 (main)
+ - Adicionar e remover produtos do carrinho na tela de vendas
+ - Removido fundo da tela de login
 
 - v1.00.1030-alpha1 (main)
     - Crud de Categorias e Produtos
@@ -11,7 +13,6 @@
     - Uso de states nos forms
     - Caixa "Sobre" - Efeito no Modo Escuro
     - Caixa "Sobre" - Texto alterado
-
 
 - v1.00.1000-alpha1 (08.05.2024)
     - Primeiro commit do projeto

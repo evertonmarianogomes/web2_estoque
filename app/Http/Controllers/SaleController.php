@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -22,7 +23,15 @@ class SaleController extends Controller
      */
     public function create()
     {
-        //
+        $products = Product::all();
+        return Inertia::render('Admin/Sales/Create', [
+            'title' => 'Nova venda - ' . env('APP_NAME'),
+            'products' => $products
+        ]);
+    }
+
+    public function pageProducts()
+    {
     }
 
     /**

@@ -2,7 +2,7 @@ const formatCurrency = (value) => {
     if (!value) return '';
 
     // Remove tudo que não for dígito
-    value = value.replace(/\D/g, '');
+    value = String(value).replace(/\D/g, '');
 
     // Adiciona os centavos
     value = (value / 100).toFixed(2);
@@ -18,7 +18,7 @@ const formatCurrency = (value) => {
 
 const MoneyInput = ({ value, onChange }) => {
     const handleChange = (e) => {
-        let inputValue = e.target.value;
+        let inputValue = String(e.target.value);
 
         // Remove tudo que não é dígito
         inputValue = inputValue.replace(/\D/g, '');

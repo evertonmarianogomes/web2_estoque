@@ -13,8 +13,6 @@ use App\Http\Middleware\PreventBackHistory;
 
 Route::get('/', [AppController::class, 'login'])->name('app.home');
 
-Route::get('/HelloWorld', [AppController::class, 'HelloWorld'])->name('app.helloWorld')->middleware(PreventBackHistory::class);
-
 Route::post('/validate', [LoginController::class, 'validateLogin'])->name('app.validateLogin');
 
 Route::get('/notLoggedIn', [LoginController::class, 'notLoggedIn'])->name('admin.notLoggedIn');
@@ -22,8 +20,8 @@ Route::get('/notLoggedIn', [LoginController::class, 'notLoggedIn'])->name('admin
 Route::prefix('admin')->middleware(['auth', PreventBackHistory::class])->group(function () {
     Route::get('/', [AppController::class, 'home'])->name('admin.index');
     Route::get('/logout', [LoginController::class, 'logout'])->name('admin.logout');
-
     Route::get('/editAuthUser', [AppController::class, 'editAuthUser'])->name('admin.editAuthUser');
+    // Route::get('/hello', [AppController::class, 'HelloWorld'])->name('admin.helloworld');
 
     Route::resources([
         'users' => UserController::class,
@@ -32,4 +30,7 @@ Route::prefix('admin')->middleware(['auth', PreventBackHistory::class])->group(f
         'products' => ProductController::class,
         'sales' => SaleController::class
     ]);
+
+    // Payments Route
+    Route::post('/getPixCode', [AppController::class, 'getCode'])->name('pix.getCode');
 });

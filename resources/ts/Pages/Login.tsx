@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import { usePage, Link, router } from "@inertiajs/react";
 import DarkMode from "./Components/DarkMode";
 import { route } from "ziggy-js";
-
-import LoginLayout from "./Components/LoginLayout";
-
-
+import Layout from "./Layout";
 
 const Login = () => {
     const { app } = usePage().props as any;
@@ -25,7 +22,7 @@ const Login = () => {
     return (
         < div className="container pt-3" >
             <div className="row justify-content-center">
-                <div className="card col-12 col-md-8 col-lg-6 login-card">
+                <div className="card col-12 col-md-8 col-lg-6">
                     <div className="card-body">
                         <header className="d-flex justify-content-between">
                             <div className="flex-grow-1">
@@ -59,6 +56,6 @@ const Login = () => {
 }
 
 
-Login.layout = page => <LoginLayout children={page} />
+Login.layout = page => <Layout children={page} />
 
 export default Login;

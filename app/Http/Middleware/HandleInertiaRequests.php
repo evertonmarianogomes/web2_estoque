@@ -44,7 +44,8 @@ class HandleInertiaRequests extends Middleware
                 'appMode' => env('APP_ENV'),
                 'appBranch' => env('APP_BRANCH'),
                 'appUrl' => env('APP_URL'),
-                'appPublicUrl' => public_path()
+                'appPublicUrl' => public_path(),
+                'appToken' => csrf_token()
             ],
             'flash' => [
                 'message' => fn () => $request->session()->get('message'),

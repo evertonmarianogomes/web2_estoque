@@ -13,6 +13,7 @@
       "module": "ESNext",
       "jsx": "preserve",
       "moduleResolution": "Node",
+      "allowJs": true,
     },
     "include": ["resources/ts/**/*"], // Inclua os arquivos que você quer que o TypeScript compile
     "exclude": ["node_modules"] // Exclua os diretórios que você não quer que sejam compilados
