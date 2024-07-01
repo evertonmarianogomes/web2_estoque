@@ -14,7 +14,7 @@ const Index = ({ props }) => {
     }
 
     return (<>
-        <div className="container">
+        <div className="container pt-2">
 
             <ul className="nav nav-tabs" id="myTab" role="tablist">
                 <li className="nav-item" role="presentation">

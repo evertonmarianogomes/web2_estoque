@@ -22,7 +22,7 @@ export default function Navbar(props: any) {
 
     return (
         <BootstrapNavbar expand='lg' container>
-            <Link href={route('admin.index')} className="navbar-brand" children="Home" />
+            <Link href={route('admin.home')} className="navbar-brand" children="Home" />
 
             <NavbarToggler onClick={toggle} />
             <Collapse isOpen={isOpen} navbar>

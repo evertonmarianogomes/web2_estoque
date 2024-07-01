@@ -30,7 +30,7 @@ const Index = () => {
                 </div>
 
                 <div className="col-12 col-md col-lg box-title">
-                    <Link href='#' className='d-flex flex-column gap-2 align-items-center h-100 justify-content-center btn btn-success' style={{ height: '10rem' }}>
+                    <Link href={route('reports.index')} className='d-flex flex-column gap-2 align-items-center h-100 justify-content-center btn btn-success' style={{ height: '10rem' }}>
                         <i className="fa-solid fa-print" style={{ fontSize: '4rem' }}></i>
                         <h5>Relatório</h5>
                     </Link>

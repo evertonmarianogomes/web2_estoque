@@ -26,7 +26,7 @@ const Login = () => {
                     <div className="card-body">
                         <header className="d-flex justify-content-between">
                             <div className="flex-grow-1">
-                                <small className="text-muted">{app.appName} {app.appRelease}</small>
+                                <small className="text-muted"><i className={app.appFaIcon}></i>  {app.appName} {app.appRelease}</small>
                                 <h3>Acesso</h3>
                             </div>
 

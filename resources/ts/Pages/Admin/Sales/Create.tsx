@@ -2,20 +2,14 @@ import React, { useState, useEffect } from "react";
 import { usePage, Link, router } from "@inertiajs/react";
 import { Button, Table } from "reactstrap";
 import PageProducts from "./PageProducts";
-import { formatCurrency } from "../../Components/CurrencyInput";
-import { route } from 'ziggy-js'
-
-import ReactDOMServer from "react-dom/server";
-import alertify from 'alertifyjs';
 import PagePayment from "../Payments/PagePayment";
-
+import { formatToBRL } from "../Currency";
 
 const Create = ({ props }) => {
     const { products, app } = usePage().props as any;
     const [cart, setCart] = useState([]);
     const [total, setTotal] = useState(0.0);
     const [productList, setProductList] = useState(null);
-    const [payment, setPayment] = useState(false);
     const [page, setPage] = useState('cashier');
 
 
@@ -39,30 +33,6 @@ const Create = ({ props }) => {
         });
     }
 
-
-    const getPixQRCode = async (total: any) => {
-        let data = JSON.stringify({ amount: total });
-        let resp = await fetch(route('pix.getCode'), {
-            method: 'post',
-            body: data,
-            headers: {
-                'X-CSRF-TOKEN': app?.appToken,
-                "Content-Type": "application/json",
-            }
-        })
-
-        let item = await resp.json();
-
-        alertify.alert(`${app.appName} - Pagamento`, ReactDOMServer.renderToString(<>
-            <p>Pague {formatCurrency((total * 100).toString())} e confirme o pagamento clicando em "OK"</p>
-            <img src={item?.qrCode}></img>
-        </>));
-    }
-
-    const finishSale = () => {
-        setPayment(true);
-    }
-
     useEffect(function () {
         let aux = 0.0;
         cart.map((item) => { aux += item.total });
@@ -74,11 +44,13 @@ const Create = ({ props }) => {
         let aux = [];
         products.map(item => aux.push(item));
         setProductList(aux);
+
+
     }, []);
 
 
     return (<>
-        <div className="container-fluid pt-1">
+        <div className="container-fluid pt-3">
 
             {page == 'cashier' && <>
                 <div className="col-12 d-flex flex-wrap gap-2">
@@ -111,8 +83,8 @@ const Create = ({ props }) => {
                                                     <td>{index + 1}</td>
                                                     <td>{item?.name}</td>
                                                     <td>{item?.quantity}</td>
-                                                    <td>{formatCurrency((item?.price * 100).toString())}</td>
-                                                    <td>{formatCurrency((item?.total * 100).toString())}</td>
+                                                    <td>{formatToBRL(item?.price)}</td>
+                                                    <td>{item?.total}</td>
                                                     <td>
                                                         <Button color="danger" onClick={(e) => deleteProduct(item.id)}><i className="fas fa-trash"></i></Button>
                                                     </td>
@@ -124,7 +96,7 @@ const Create = ({ props }) => {
                                     <tfoot>
                                         <tr>
                                             <td colSpan={7} className="text-center">
-                                                <h3 className="py-3">Total: {formatCurrency((total * 100).toString())}</h3>
+                                                <h3 className="py-3">Total: {formatToBRL(total)}</h3>
                                             </td>
 
                                         </tr>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Table } from 'reactstrap';
-import { formatCurrency } from "../../Components/CurrencyInput";
+import { formatToBRL } from "../Currency";
+
 
 const PageProducts = (props) => {
 
@@ -41,10 +42,31 @@ const PageProducts = (props) => {
         }
     }
 
+
+    function keyDownE(e: React.KeyboardEvent) {
+        if (e.key == 'Enter') {
+            let el = e.target as HTMLInputElement;
+            let str = el.id;
+
+            const match = str.match(/\d+$/);
+
+            if (match) {
+                const number = match[0];  // O número encontrado
+                let btn = document.querySelector(`#add${number}`) as HTMLButtonElement;
+                btn.click();
+                el.value = '0';
+            } else {
+                console.log('Nenhum número encontrado no final da string.');
+            }
+        }
+
+
+    }
+
     return (<>
         <h5>Produtos</h5>
 
-        <Table hover striped responsive>
+        <Table hover striped responsive >
             <thead>
                 <tr>
                     <th>#</th>
@@ -62,16 +84,17 @@ const PageProducts = (props) => {
                         {item?.is_available ? <>
                             <td>{index + 1}</td>
                             <td>{item?.name}</td>
-                            <td>{formatCurrency((item?.price * 100).toString())}</td>
+                            <td>{formatToBRL(item?.price)}</td>
                             <td>{item?.quantity}</td>
                             <td>
                                 {item.quantity == 0 ? <>-</> : <>
-                                    <input type="number" min={0} max={item?.quantity} defaultValue={0} className="form-control col-2" id={`input${item?.id}`} />
+                                    <input type="number" min={0} max={item?.quantity} defaultValue={0} className="form-control col-2" id={`input${item?.id}`} onKeyDown={keyDownE} />
                                 </>}
 
                             </td>
                             <td>
-                                {item.quantity == 0 ? <span>Sem Estoque</span> : <button className="btn btn-primary" onClick={(e) => addProductCart(item?.id)}><i className="fas fa-plus"></i></button>}
+                                {item.quantity == 0 ? <span>Sem Estoque</span> : <button className="btn btn-primary" id={`add${item?.id}`}
+                                    onClick={(e) => addProductCart(item?.id)}><i className="fas fa-plus"></i></button>}
 
                             </td>
                         </> : ''}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavItem, NavLink, Modal, ModalHeader, ModalBody } from "reactstrap";
+import { NavItem, NavLink, Modal, ModalHeader, ModalBody, Button } from "reactstrap";
 
 
 export default function About(props: any) {
@@ -11,9 +11,10 @@ export default function About(props: any) {
 
 
     return (<>
-        <NavItem>
+        {/* <NavItem>
             <NavLink onClick={toggle} style={{ cursor: 'pointer' }}>Sobre</NavLink>
-        </NavItem>
+        </NavItem> */}
+        <Button onClick={toggle} style={{ cursor: 'pointer' }} className="list-group-item list-group-item-action">Sobre</Button>
 
         <Modal isOpen={modal} toggle={toggle}   >
             <ModalHeader toggle={toggle}>Sobre</ModalHeader>

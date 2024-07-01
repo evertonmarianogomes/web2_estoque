@@ -18,7 +18,7 @@ class AppController extends Controller
     public function login(Request $request)
     {
         if (Auth::check()) {
-            return redirect()->route('admin.index')->with('message', 'Bem vindo');
+            return redirect()->route('admin.home')->with('message', 'Bem vindo');
         } else {
             return Inertia::render("Login", ["title" => "Login - " . env('APP_NAME')]);
         }
@@ -45,7 +45,6 @@ class AppController extends Controller
     public function getCode(Request $request)
     {
         $amount = (float) $request->amount;
-
 
         $pixController = new PixController();
         $description = 'Louvorzao 2024';

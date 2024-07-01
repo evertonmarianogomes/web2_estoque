@@ -1,3 +1,9 @@
+## Histórico de Alterações - fn_dev
+
+- v1.00.1041-alpha1 (fn_dev)
+  - Alterado o Navbar para a lateral
+  - Alterações menores
+
 - v1.00.1037-alpha1 (fn_dev)
   - commit
 

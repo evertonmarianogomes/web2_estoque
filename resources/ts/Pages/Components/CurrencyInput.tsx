@@ -16,7 +16,7 @@ const formatCurrency = (value) => {
     return `R$ ${value}`;
 };
 
-const MoneyInput = ({ value, onChange }) => {
+const MoneyInput = ({ value, onChange, className = 'form-control' }) => {
     const handleChange = (e) => {
         let inputValue = String(e.target.value);
 
@@ -33,7 +33,7 @@ const MoneyInput = ({ value, onChange }) => {
             value={formatCurrency(value)}
             onChange={handleChange}
             placeholder="R$ 0,00"
-            className='form-control'
+            className={className}
         />
     );
 };

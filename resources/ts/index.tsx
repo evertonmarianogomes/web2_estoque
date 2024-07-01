@@ -3,7 +3,6 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import Layout from './Pages/Layout';
 import "bootstrap";
-
 import '../scss/__toast.scss';
 import '../scss/__loader.scss';
 import 'react-toastify/dist/ReactToastify.css';
