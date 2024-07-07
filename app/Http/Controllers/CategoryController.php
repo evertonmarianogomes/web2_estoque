@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class CategoryController extends Controller
 {
@@ -13,7 +14,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return Category::all();
+        $categories = Category::all();
+
+        return Inertia::render('Admin/Stock/Categories/Index', ['title' => 'Categorias - ' . env('APP_NAME'), 'categories' => $categories]);
     }
 
     /**

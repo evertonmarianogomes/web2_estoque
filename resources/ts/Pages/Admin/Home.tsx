@@ -1,50 +1,55 @@
-import React from "react";
-import { router, usePage } from "@inertiajs/react";
-import { route } from 'ziggy-js'
-import { Table } from 'reactstrap';
+import React from 'react';
+import { Button, Typography } from '@mui/material';
+import { Card, CardContent, Box, CardActions } from '@mui/material';
 
+import MDLayout from '../MDLayout';
 
-const Home = () => {
-    const { user } = usePage().props as any;
-
-    return (
+const Home = (props) => {
+    const { user } = props;
+    return (<>
         <div className="container pt-3">
-            <h3>Bem vindo {user?.first_name}</h3>
+            <Typography variant="h5" gutterBottom>
+                Bem vindo {user.first_name}
+            </Typography>
             <hr />
 
-            <div className="card shadow-sm">
-                <div className="card-body">
-                    <h5 className="card-title">Ultimas vendas</h5>
-                    <Table striped responsive hover>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Nome do cliente</th>
-                                <th>Valor Total</th>
-                                <th>Forma de pagamento</th>
-                                <th>Usuário</th>
-                                <th>Data da venda</th>
-                                <th>Opções</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Usuário Teste</td>
-                                <td>R$100,00</td>
-                                <td>Cartão de Crédito</td>
-                                <td>Everton M. Gomes</td>
-                                <td>25/05/2024 - 00:53</td>
-                                <td><button className="btn btn-primary"><i className="fas fa-print"></i></button></td>
-                            </tr>
-                        </tbody>
-                    </Table>
+            <div className="d-flex mt-3 gap-3 flex-wrap">
+                <h4 className='col-12'>Novidades</h4>
+                <Card className="col-12 col-lg" >
+                    <CardContent>
+                        <h4>Material Design</h4>
+                        <p>Novo visual usando o Material UI para React. Visual otimizado para dispositivos móveis</p>
+                        <CardActions>
+                            <Button variant="contained" color="primary">Iniciar</Button>
+                        </CardActions>
+                    </CardContent>
 
-                </div>
+
+                </Card>
+
+                <Card className="col-12 col-lg" >
+                    <CardContent>
+                        <h4>Funcionalidades</h4>
+                        <ul>
+                            <li>Vendas com várias formas de pagamento</li>
+                            <li>Relatório (em construção)</li>
+                        </ul>
+                        <CardActions>
+                            <Button variant="contained" color="primary">Iniciar</Button>
+                        </CardActions>
+                    </CardContent>
+
+                </Card>
+
             </div>
-        </div>
-    );
+
+        </div >
+
+    </>);
 }
+
+
+Home.layout = (page: any) => <MDLayout children={page} />
 
 
 export default Home;

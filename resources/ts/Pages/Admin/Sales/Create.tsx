@@ -1,122 +1,68 @@
-import React, { useState, useEffect } from "react";
-import { usePage, Link, router } from "@inertiajs/react";
-import { Button, Table } from "reactstrap";
-import PageProducts from "./PageProducts";
-import PagePayment from "../Payments/PagePayment";
-import { formatToBRL } from "../Currency";
+// MD Sales View
+import React, { useState, useEffect } from 'react';
+import Tooltip from '@mui/material/Tooltip';
+import MDLayout from '../../MDLayout';
+import { Card, CardContent, Box, CardActions, Button, TextField } from '@mui/material';
+import { router } from '@inertiajs/react';
+import { route } from 'ziggy-js';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import ProductsTable from './Products/ProdTable';
+import CartTable from './Cart/CartTable';
+import { formatToBRL } from '../Currency';
+import Finish from './Finish';
 
-const Create = ({ props }) => {
-    const { products, app } = usePage().props as any;
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
+
+const Create = (props) => {
     const [cart, setCart] = useState([]);
-    const [total, setTotal] = useState(0.0);
-    const [productList, setProductList] = useState(null);
-    const [page, setPage] = useState('cashier');
+    const [products, setProducts] = useState<any>(props?.products);
+    const [amount, setAmount] = useState<Number>(0.00);
 
+    useEffect(() => {
+        let sumValues = 0.0;
 
-    const deleteProduct = (id) => {
-        let prodSel = cart.find(item => item.id == id);
-
-        setCart(prevItems => prevItems.filter(item => item.id !== id));
-
-        setProductList(prevItems =>
-            prevItems.map(item =>
-                item.id === prodSel.id ? { ...item, quantity: item.quantity + prodSel.quantity } : item
-            )
-        );
-    }
-
-    const resetCart = () => {
-        cart.map((item, index) => {
-            let id = Number(item.id);
-            let index_prod = products.findIndex(prod => prod.id == id);
-            setProductList(prevItems => prevItems.map(item => item.id == id ? { ...item, quantity: products[index_prod].quantity } : item)); setCart([]);
+        cart.map((item) => {
+            sumValues += item?.total;
         });
-    }
 
-    useEffect(function () {
-        let aux = 0.0;
-        cart.map((item) => { aux += item.total });
-        setTotal(aux)
+        setAmount(sumValues);
     }, [cart]);
-
-
-    useEffect(function () {
-        let aux = [];
-        products.map(item => aux.push(item));
-        setProductList(aux);
-
-
-    }, []);
-
-
     return (<>
         <div className="container-fluid pt-3">
-
-            {page == 'cashier' && <>
-                <div className="col-12 d-flex flex-wrap gap-2">
-                    <div className="col-12 col-lg-6">
-                        <div className="card card-body">
-                            {productList && <PageProducts productList={productList} setCart={setCart} cart={cart} setProductList={setProductList} />}
-                        </div>
-                    </div>
-
-                    <div className="col-12 col-lg">
-                        <div className="card">
-                            <div className="card-body">
-                                <h5>Carrinho</h5>
-                                <Table responsive hover striped>
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Produto</th>
-                                            <th>Qtd</th>
-                                            <th>Preço unitário</th>
-                                            <th>Total</th>
-                                            <th>Opções</th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        {cart.length == 0 ? <tr><td colSpan={6} className="text-center">Adicione produtos no carrinho</td></tr>
-                                            : cart.map((item, index) => (
-                                                <tr key={index}>
-                                                    <td>{index + 1}</td>
-                                                    <td>{item?.name}</td>
-                                                    <td>{item?.quantity}</td>
-                                                    <td>{formatToBRL(item?.price)}</td>
-                                                    <td>{item?.total}</td>
-                                                    <td>
-                                                        <Button color="danger" onClick={(e) => deleteProduct(item.id)}><i className="fas fa-trash"></i></Button>
-                                                    </td>
-                                                </tr>
-                                            ))
-                                        }
-                                    </tbody>
-
-                                    <tfoot>
-                                        <tr>
-                                            <td colSpan={7} className="text-center">
-                                                <h3 className="py-3">Total: {formatToBRL(total)}</h3>
-                                            </td>
-
-                                        </tr>
-                                    </tfoot>
-                                </Table>
-                            </div>
-                            <div className="card-footer d-flex gap-2">
-                                <Button color="success" onClick={() => setPage('payment')} disabled={total == 0}>Finalizar Venda</Button>
-                                <Button color="secondary" onClick={() => resetCart()}>Resetar</Button>
-                            </div>
-                        </div>
-                    </div>
+            <div className="d-flex flex-wrap gap-3">
+                <div className="col-12 col-lg-6">
+                    <h4>
+                        <Tooltip title='Voltar para vendas' placement="bottom-start">
+                            <Button color='secondary' onClick={(e) => router.visit(route('sales.index'))} variant="contained">
+                                <KeyboardArrowLeftIcon /></Button>
+                        </Tooltip> Produtos</h4>
+                    <ProductsTable products={{
+                        products: products,
+                        setProducts: setProducts
+                    }} cart={{ cart: cart, setCart: setCart }} />
                 </div>
-            </>}
 
+                <Card className="col-12 col-lg">
+                    <CardContent>
+                        <div className="col-12 d-flex flex-wrap">
+                            <h4 className="col"><ShoppingCartIcon />  Carrinho</h4>
 
-            {page == 'payment' && <PagePayment handlePage={setPage} amount={total} />}
+                            <Finish cart={cart} amount={amount} />
+                        </div>
 
+                        <p>Total: <b>{formatToBRL(amount)}</b></p>
+                        <CartTable cartState={{ cart, setCart }} productsState={{ products, setProducts }} />
+                    </CardContent>
+                </Card>
+            </div>
         </div>
-    </>)
+
+
+    </>);
 }
+
+
+Create.layout = (page: any) => <MDLayout children={page} />
 
 export default Create;

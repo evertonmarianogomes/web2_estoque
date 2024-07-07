@@ -7,8 +7,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
-use IntlChar;
-use PhpParser\Node\Stmt\Return_;
+
 
 class ProductController extends Controller
 {
@@ -17,7 +16,13 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::all();
+        $categories = Category::all();
+        return Inertia::render('Admin/Stock/Products/Index', [
+            'title' => 'Produtos - ' . env('APP_NAME'),
+            'products' => $products,
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -45,36 +50,17 @@ class ProductController extends Controller
             'quantity' => 'required|numeric',
         ]);
 
-
-        if ($request->hasFile('image')) {
-            // Get filename with the extension
-            $filenameWithExt = $request->file('image')->getClientOriginalName();
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
-            $extension = $request->file('image')->getClientOriginalExtension();
-
-            // Filename to store
-            $fileNameToStore = hash('md5', $filename . '_' . time()) . '.' . $extension;
-
-            $path = $request->file('image')->storeAs('public/images', $fileNameToStore);
-        } else {
-            $fileNameToStore = 'noimage.png';
-        }
-
         $product = new Product();
         $product->name = $request->name;
-        $product->description = ($request->description) ? $request->description : '-';
-        $product->price = ((float) $request->price) / 100;
-        $product->cost_price = ((float) $request->cost_price) / 100;
-        $product->image_url = $fileNameToStore;
+        $product->description = ($request->description) ? $request->description : 'Sem descrição';
+        $product->price = ((float) $request->price);
+        $product->cost = ((float) $request->cost_price);
         $product->category_id = (int) $request->category;
         $product->quantity = (int) $request->quantity;
-        $product->is_available  = 1;
 
         $product->save();
 
-        return redirect()->route('stock.index')->with('success', 'Produto Criado com Sucesso');
+        return redirect()->back()->with('success', 'Produto Criado com Sucesso');
     }
 
     /**
@@ -109,47 +95,24 @@ class ProductController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'product_name' => 'required',
+            'name' => 'required',
             'price' => 'required|numeric',
-            'cost_price' => 'required',
-            'product_category' => 'required',
-            'product_quantity' => 'required|numeric',
-            'is_available' => 'required|numeric'
+            'cost' => 'required',
+            'category' => 'required',
+            'quantity' => 'required|numeric',
         ]);
 
         $product = Product::find($id);
 
-        $product->name = $request->product_name;
-        $product->price = ((float) $request->price) / 100;
-        $product->cost_price = ((float) $request->cost_price) / 100;
-        $product->category_id = (int) $request->product_category;
-        $product->quantity = (int) $request->product_quantity;
-        $product->is_available = (int) $request->is_available;
-
-        if ($request->hasFile('product_image')) {
-            $request->validate(['product_image' => 'required|file|mimes:jpeg,png,jpg,gif,svg|max:4196']);
-
-            $oldName = $product->image_url;
-            if ($oldName != 'noimage.png') Storage::delete('public/images/' . $oldName);
-
-            // Get filename with the extension
-            $filenameWithExt = $request->file('product_image')->getClientOriginalName();
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
-            $extension = $request->file('product_image')->getClientOriginalExtension();
-
-            // Filename to store
-            $fileNameToStore = hash('md5', $filename . '_' . time()) . '.' . $extension;
-
-            $path = $request->file('product_image')->storeAs('public/images', $fileNameToStore);
-
-            $product->image_url = $fileNameToStore;
-        }
+        $product->name = $request->name;
+        $product->price = ((float) $request->price);
+        $product->cost = ((float) $request->cost);
+        $product->category_id = (int) $request->category;
+        $product->quantity = (int) $request->quantity;
 
         $product->save();
 
-        return redirect()->route('stock.index')->with('success', 'Produto atualizado com sucesso');
+        return redirect()->back()->with('success', 'Produto atualizado com sucesso');
     }
 
     /**
@@ -158,10 +121,7 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         $product = Product::find($id);
-        $oldName = $product->image_url;
         $product->delete();
-        Storage::delete('public/images/' . $oldName);
-
-        return redirect()->route('stock.index')->with('success', 'Produto excluido com sucesso');
+        return redirect()->back()->with('success', 'Produto excluido com sucesso');
     }
 }

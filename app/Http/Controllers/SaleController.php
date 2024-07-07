@@ -30,10 +30,6 @@ class SaleController extends Controller
         ]);
     }
 
-    public function pageProducts()
-    {
-    }
-
     /**
      * Store a newly created resource in storage.
      */

@@ -16,15 +16,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            'first_name' => 'Test',
-            'last_name' => 'Admin',
+            'first_name' => 'Everton',
+            'last_name' => 'M. Gomes',
             'email' => 'example@mail.com',
             'login' => 'test.admin',
             'password' => Hash::make('123456')
-        ]);
-
-        Category::create([
-            'name' => 'Bebidas'
         ]);
     }
 }

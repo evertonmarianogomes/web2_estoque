@@ -1,37 +1,46 @@
-import React, { useState } from "react";
+// MD Sales View
+import React, { useState, useEffect } from 'react';
+import { Card, CardContent, CardActions, Button } from '@mui/material';
+import MDLayout from '../../MDLayout';
 import { route } from 'ziggy-js';
-import { Index as Category } from "../Categories/Index";
-import { Index as Products } from '../Products/Index';
+import { router } from '@inertiajs/react';
 
 
-const Index = ({ props }) => {
-    const [activeTab, setActiveTab] = useState("tab2");
-
-    const handleTab1 = () => setActiveTab("tab1");
-
-    const handleTab2 = () => {
-        setActiveTab("tab2");
-    }
+const Index = (props) => {
 
     return (<>
-        <div className="container pt-2">
+        <div className="container pt-3">
 
-            <ul className="nav nav-tabs" id="myTab" role="tablist">
-                <li className="nav-item" role="presentation">
-                    <button className="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true" onClick={handleTab1}>Categorias</button>
-                </li>
-                <li className="nav-item" role="presentation">
-                    <button className="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false" onClick={handleTab2}>Produtos</button>
-                </li>
-            </ul>
-            <div className="tab-content tab-list" id="myTabContent">
-                {activeTab === "tab1" ? <Category /> : <Products />}
+            <div className="d-flex gap-2 justify-content-center mt-2 flex-wrap">
+                <Card className='col-12 col-lg'>
+                    <CardContent sx={{ height: 'max-content' }}>
+                        <h4>Categorias</h4>
+                        <hr />
+                        <p>Gerencie as categorias de seus produtos</p>
+                        <CardActions>
+                            <Button variant='contained' color='primary' onClick={() => router.visit(route('categories.index'))}>Iniciar</Button>
+                        </CardActions>
 
+                    </CardContent>
+                </Card>
+                <Card className='col-12 col-lg'>
+                    <CardContent >
+                        <h4>Produtos</h4>
+                        <hr />
+                        <p>Gerencie os produtos disponíveis para venda</p>
+
+                        <CardActions>
+                            <Button variant='contained' color='primary' onClick={() => router.visit(route('products.index'))}>Iniciar</Button>
+                        </CardActions>
+                    </CardContent>
+                </Card>
             </div>
-
         </div>
+
     </>);
 }
 
+
+Index.layout = (page: any) => <MDLayout children={page} />
 
 export default Index;

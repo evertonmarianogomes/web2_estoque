@@ -1,49 +1,59 @@
-import React, { useState } from 'react';
-import { router, usePage, Link } from '@inertiajs/react';
+// MD Sales View
+import React, { useState, useEffect } from 'react';
+import Alert from '@mui/material/Alert';
+import MDLayout from '../../MDLayout';
+import { Card, CardContent, Box, CardActions, Button } from '@mui/material';
+import { router } from '@inertiajs/react';
 import { route } from 'ziggy-js';
-import { formatCurrency, MoneyInput } from '../../Components/CurrencyInput';
 
 
-const Index = () => {
-    const [amount, setAmount] = useState('');
-
-
+const Index = (props) => {
     return (<>
         <div className="container pt-3">
-            <h3>Vendas</h3>
-            <hr />
+            <Alert severity="info">Vendas - Esta tela está em construção</Alert>
 
-            <div className="col-12 d-flex flex-wrap gap-2">
-                <div className="col-12 col-md col-lg" style={{ height: '10rem' }}>
-                    <Link href={route('sales.create')} className='d-flex flex-column gap-2 align-items-center h-100 justify-content-center btn btn-primary'>
-                        <i className="fa-solid fa-cash-register" style={{ fontSize: '4rem' }}></i>
-                        <h5>Iniciar Venda</h5>
-                    </Link>
-                </div>
+            <div className="d-flex mt-3 gap-3 flex-wrap">
+                <h4 className='col-12'>Opções disponíveis</h4>
+                <Card className="col-12 col-lg" >
+                    <CardContent>
+                        <section>
+                            <h4>Vendas</h4>
+                            <p>Confira as opções disponíveis</p>
+                            <div className="d-flex gap-4 flex-column">
+                                <Button variant="contained" color="primary" onClick={() => router.visit(route('sales.create'))}>Iniciar Venda</Button>
+                                <Button variant="contained" color="primary" onClick={() => router.visit(route('sales.create'))}>Histórico de Vendas</Button>
+                            </div>
 
-                <div className="col-12 col-md col-lg">
-                    <Link href='#' className='d-flex flex-column gap-2 align-items-center h-100 justify-content-center btn btn-secondary' style={{ height: '10rem' }}>
-                        <i className="fa-regular fa-credit-card" style={{ fontSize: '4rem' }}></i>
-                        <h5>Formas de Pagamento</h5>
-                    </Link>
+                        </section>
 
-                </div>
 
-                <div className="col-12 col-md col-lg box-title">
-                    <Link href={route('reports.index')} className='d-flex flex-column gap-2 align-items-center h-100 justify-content-center btn btn-success' style={{ height: '10rem' }}>
-                        <i className="fa-solid fa-print" style={{ fontSize: '4rem' }}></i>
-                        <h5>Relatório</h5>
-                    </Link>
+                    </CardContent>
+                </Card>
 
-                </div>
+
+
+                <Card className="col-12 col-lg" >
+                    <CardContent>
+                        <section style={{ height: '8rem' }}>
+                            <h4>Relatórios</h4>
+                            <p>Gere seus relatórios de venda clicando no botão abaixo</p>
+                        </section>
+
+
+                        <CardActions>
+                            <Button variant="contained" color="primary" onClick={() => router.visit(route('reports.index'))}>Iniciar</Button>
+                        </CardActions>
+                    </CardContent>
+
+                </Card>
+
             </div>
+        </div >
 
-
-
-        </div>
     </>);
 }
 
 
+Index.layout = (page: any) => <MDLayout children={page} />
 
 export default Index;

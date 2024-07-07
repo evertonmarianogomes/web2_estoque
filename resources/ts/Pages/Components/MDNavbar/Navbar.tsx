@@ -11,24 +11,14 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import { useTheme } from '@mui/material/styles';
-import { FormControlLabel, Switch } from '@mui/material';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { route } from 'ziggy-js';
-import { Link, router } from '@inertiajs/react';
+import { router } from '@inertiajs/react';
 
-
-
-const pages = [{ name: 'Estoque', link: route('stock.index') }, { name: 'Vendas', link: route('sales.index') }];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+import ThemeSwitch from '../ThemeSwitch';
+import { pages } from './Items';
 
 function ResponsiveAppBar(props: any) {
-    const { context, user } = props;
-
-    const theme = useTheme();
-    const colorMode = React.useContext(context) as any;
+    const { user, app } = props;
 
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -49,15 +39,22 @@ function ResponsiveAppBar(props: any) {
     };
 
     return (
-        <AppBar position="static" color='secondary'>
-            <Container maxWidth="xl">
+        <AppBar position="fixed" color="transparent" sx={{
+            backdropFilter: 'blur(10px)',
+            zIndex: 1
+        }}
+        >
+            <Container maxWidth="lg">
                 <Toolbar disableGutters>
-                    <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
                     <Typography
                         variant="h6"
                         noWrap
                         component="a"
-                        href="#app-bar-with-responsive-menu"
+                        href={route('app.home')}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            router.visit(e.currentTarget.href);
+                        }}
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -68,7 +65,7 @@ function ResponsiveAppBar(props: any) {
                             textDecoration: 'none',
                         }}
                     >
-                        <Link href={route('app.home')} style={{ textDecoration: 'none', color: 'inherit' }}>Home</Link>
+                        Home
                     </Typography>
 
 
@@ -101,19 +98,22 @@ function ResponsiveAppBar(props: any) {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {/* {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
+                            {pages.map((page, index) => (
+                                <MenuItem key={index} onClick={handleCloseNavMenu} >
+                                    <Typography textAlign="center" onClick={(e) => {
+                                        router.visit(page.link);
+                                    }}>{page.name}</Typography>
                                 </MenuItem>
-                            ))} */}
+                            ))}
+
+                            <MenuItem><ThemeSwitch /></MenuItem>
                         </Menu>
                     </Box>
-                    <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+
                     <Typography
                         variant="h5"
                         noWrap
                         component="a"
-                        href="#app-bar-with-responsive-menu"
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },
@@ -123,37 +123,35 @@ function ResponsiveAppBar(props: any) {
                             letterSpacing: '.3rem',
                             color: 'inherit',
                             textDecoration: 'none',
+                            cursor: 'pointer'
                         }}
+                        onClick={(e) => { router.visit(route('app.home')) }}
                     >
-                        LOGO
+                        Home
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {/*  Main - Navbar */}
 
                         {pages.map((item, index) => (
-                            <Button key={index} sx={{ my: 2, color: 'white', display: 'block' }}>
-                                <Link href={item.link} style={{ textDecoration: 'none', color: 'inherit' }}>{item.name}</Link>
-                            </Button>
+                            <Button key={index} sx={{ my: 2, color: 'inherit', display: 'block' }} data-url={item.link} onClick={(e) => {
+                                router.visit((e.target as HTMLElement).dataset.url)
+                            }}>{item.name}</Button>
                         ))}
                         {/*  End Main - Navbar */}
                     </Box>
 
                     {/* End Box */}
                     <Box sx={{ mr: "1rem", flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
-                        <Button sx={{ color: 'white', display: 'block' }}>
-                            <FormControlLabel control={<Switch onChange={(e) => {
-                                colorMode.toggleColorMode()
-                            }} />} label={(theme.palette.mode) === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-                                checked={theme.palette.mode == 'dark'}
-                            />
+                        <Button sx={{ color: 'inherit', display: 'block' }}>
+                            <ThemeSwitch />
                         </Button>
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt={user.first_name} src="/static/images/avatar/2.jpg" />
+                                <Avatar alt={user.first_name} src="/storage/images/default_profile_image.jpg" />
                             </IconButton>
                         </Tooltip>
                         <Menu
@@ -172,11 +170,14 @@ function ResponsiveAppBar(props: any) {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
-                                </MenuItem>
-                            ))}
+                            <MenuItem onClick={() => {
+                                if (confirm('Certeza que deseja encerrar a sessão?')) {
+                                    router.visit(route('admin.logout'));
+                                }
+                                handleCloseUserMenu();
+                            }}>
+                                <Typography textAlign="center">Logout</Typography>
+                            </MenuItem>
                         </Menu>
                     </Box>
                 </Toolbar>

@@ -10,7 +10,6 @@ use App\Http\Controllers\SaleController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\PreventBackHistory;
-use App\Http\Controllers\MercadoPagoController;
 
 Route::get('/', [AppController::class, 'login'])->name('app.home');
 
@@ -21,9 +20,11 @@ Route::get('/notLoggedIn', [LoginController::class, 'notLoggedIn'])->name('admin
 Route::prefix('admin')->middleware(['auth', PreventBackHistory::class])->group(function () {
     Route::get('/', [AppController::class, 'home'])->name('admin.home');
     Route::get('/logout', [LoginController::class, 'logout'])->name('admin.logout');
+
     Route::get('/editAuthUser', [AppController::class, 'editAuthUser'])->name('admin.editAuthUser');
-    Route::get('/hello', [MercadoPagoController::class, 'HelloWorld'])->name('admin.helloworld');
-    Route::post('/process_payment', [MercadoPagoController::class, 'ProcessPayment'])->name('processPayment');
+    Route::get('/hello', [AppController::class, 'HelloWorld'])->name('admin.helloworld');
+    Route::get('/about', [AppController::class, 'About'])->name('app.about');
+
 
     Route::resources([
         'users' => UserController::class,
@@ -33,6 +34,8 @@ Route::prefix('admin')->middleware(['auth', PreventBackHistory::class])->group(f
         'sales' => SaleController::class,
         'reports' => ReportController::class
     ]);
+
+
 
     // Payments Route
     Route::post('/getPixCode', [AppController::class, 'getCode'])->name('pix.getCode');

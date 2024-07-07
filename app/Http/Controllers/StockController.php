@@ -16,10 +16,14 @@ class StockController extends Controller
     {
         $products = Product::all();
         foreach ($products as $product) $product->category;
+
         $categories = Category::all();
 
         return Inertia::render('Admin/Stock/Index', ['title' => 'Estoque - ' . env('APP_NAME'), 'products' => $products, 'categories' => $categories]);
     }
+
+
+
 
     /**
      * Show the form for creating a new resource.

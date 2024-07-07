@@ -12,17 +12,8 @@ class Product extends Model
     protected $fillable = [
         'name',
         'description',
-        'image_url',
         'price',
-        'cost_price',
-        'quantity',
-        'category_id',
-        'is_available'
+        'cost',
+        'category_id'
     ];
-
-
-    public function category()
-    {
-        return $this->belongsTo('App\Models\Category');
-    }
 }
