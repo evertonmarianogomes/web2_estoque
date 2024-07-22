@@ -1,8 +1,13 @@
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 @import './_loader.scss';
 @import "../../node_modules/bootstrap/scss/variables";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 $bg_color: rgba(18, 20, 20, 0.35);
+
+* {
+    font-family: 'Roboto', sans-serif;
+}
 
 
 body {
@@ -16,20 +21,223 @@ div#app {
     backdrop-filter: blur(30px) !important;
 }
 
-// .circular--landscape { display: inline-block; position: relative; width: 200px; height: 200px; overflow: hidden; border-radius: 50%; } 
-
-// .circular--landscape img { width: auto; height: 100%; margin-left: -50px; }
-
-// .circular--square { border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%; }
-
 .tab-shadow {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
-    
     padding: 0 !important;
 }
 
+.btn-container {
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-direction: column;
+    margin-top: 3.9rem;
+    margin-left: -0.1rem;
+}
+
+.content {
+    margin-left: 2rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    flex-grow: 1;
+}
+
+.floating-btn {
+    top: 1rem;
+    background-color: #607B7D;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.floating-btn#add_report{
+    background-color: #53A548 !important;
+}
+
+#add_report:hover{
+    background-color: #19381F !important;
+}
+
+
+.floating-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
+}
+
+// Table Styles
+
+.table-container {
+    font-family: "Roboto", sans-serif;
+    width: 100%;
+    margin: 20px 0;
+    overflow-x: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.styled-table thead tr {
+    background-color: #6200ea;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.styled-table tbody tr {
+    transition: background-color 0.3s;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:hover {
+    background-color: #eeeeee;
+}
+// End Table Styles
+
+.md-button-primary {
+    background-color: #6200ea;
+
+    :active {
+        background-color: #3700b3;
+    }
+    
+    :hover{
+        background-color: #3700b3; /* Cor de destaque */
+    }
+}
+
+.md-button-danger {
+    background-color: #F44336;
+
+    :active {
+        background-color: #EF5350;
+    }
+    
+    :hover{
+        background-color: #EF5350; /* Cor de destaque */
+    }
+}
+
+.md-button {
+    color: #ffffff;
+    font-family: "Roboto", sans-serif;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s;
+    margin: 0 2px 0 2px;
+}
+
+.md-button:active {    
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(1px);
+}
+
+
+@include media-breakpoint-down(lg) {
+    .btn-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px !important;
+    }
+
+    .floating-btn {
+        bottom: 20px;
+    }
+
+    .styled-table thead {
+        display: none;
+    }
+
+    .styled-table, .styled-table tbody, .styled-table tr, .styled-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .styled-table tr {
+        margin-bottom: 15px;    
+    }
+
+    .styled-table td {
+        text-align: right;
+        // padding-left: 50%;
+        // position: relative;
+
+    }
+
+    .styled-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: bold;
+        text-align: left;
+    }
+}
 
 @include color-mode(dark) {
+    .material-card {
+        background-color: rgba(18, 20, 20, 0.5);
+        color: #fff;
+
+        #card-title {
+            color: #7a7a7a;
+        }
+    }
+    .styled-table thead tr {
+        background-color: transparent !important;
+    }
+
+    .table-container {
+        background-color: rgba(18, 20, 20, 0.5);
+    }
+    
+    .styled-table tbody tr:nth-of-type(even) {
+        background-color: rgba(18, 20, 20, 0.5);
+    }
+
+    .styled-table tbody tr:hover {
+        background-color: #424242;
+    }
+
+    .styled-table th,
+    .styled-table td {
+        border-bottom: 1px solid #474747;
+    }
+
+
     @include media-breakpoint-up(lg) {
         .dropdown-menu.show {
             background: $bg_color !important;
@@ -38,21 +246,21 @@ div#app {
         }
     }
 
-    ._finish_sale_modal_body{
-        background-color: rgba(18, 20, 20, 1) !important;
-        border-radius: 0.4em !important;
-    }
-    
-
-    .modal {
-        backdrop-filter: blur(10px) !important;
-
-        .modal-content {
-            background-color: rgba(18, 20, 20, 0.35);
-            border: 1px solid rgba(255, 255, 255, 0.20) !important;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        ._finish_sale_modal_body{
+            background-color: rgba(18, 20, 20, 1) !important;
+            border-radius: 0.4em !important;
         }
-    }
+        
+
+        .modal {
+            backdrop-filter: blur(10px) !important;
+
+            .modal-content {
+                background-color: rgba(18, 20, 20, 0.35);
+                border: 1px solid rgba(255, 255, 255, 0.20) !important;
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            }
+        }
 
     
 }

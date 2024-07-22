@@ -1,21 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Report;
 
-use App\Models\Product;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class SaleController extends Controller
+class ReportController extends Controller
 {
     /**
-     * Display a listing of the resource
+     * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render("Admin/Sales/Index", [
-            "title" => "Vendas - " . env('APP_NAME')
-        ]);
+        $props = ["title" => "Relatórios - " . env('APP_NAME')];
+        return Inertia::render('Admin/Reports/Index', $props);
     }
 
     /**
@@ -23,15 +22,7 @@ class SaleController extends Controller
      */
     public function create()
     {
-        $products = Product::all();
-        return Inertia::render('Admin/Sales/Create', [
-            'title' => 'Nova venda - ' . env('APP_NAME'),
-            'products' => $products
-        ]);
-    }
-
-    public function pageProducts()
-    {
+        //
     }
 
     /**

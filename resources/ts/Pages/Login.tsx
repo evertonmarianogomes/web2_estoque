@@ -1,61 +1,73 @@
-import React, { useEffect, useState } from "react";
-import { usePage, Link, router } from "@inertiajs/react";
-import DarkMode from "./Components/DarkMode";
-import { route } from "ziggy-js";
-import Layout from "./Layout";
+// MD Sales View
+import React from 'react';
+import { Card, CardContent, Button, Alert } from '@mui/material';
+import { router } from '@inertiajs/react';
+import { route } from 'ziggy-js';
+import TextField from '@mui/material/TextField';
+import ThemeSwitch from './Components/ThemeSwitch';
 
-const Login = () => {
-    const { app } = usePage().props as any;
-    const [loginForm, setLoginForm] = useState({ login: '', password: '' });
 
-    const handleChange = (event: any) => {
-        const { name, value } = event.target;
-        setLoginForm((prevFormData) => ({ ...prevFormData, [name]: value }));
-    };
+const Login = (props) => {
+    const { app } = props;
 
-    const onSubmitForm = (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        router.post(route('app.validateLogin'), loginForm);
+
+        alert('O login está desabilitado');
+        // let formData = new FormData(e.target as HTMLFormElement);
+        // let data = {
+        //     login: formData.get('login'),
+        //     password: formData.get('password')
+        // }
+
+        // router.post(route('app.validateLogin'), data);
+
     }
 
+    return (<>
+        <div className="container pt-3">
+            <div className="d-flex mt-3 gap-3 flex-wrap justify-content-center">
+                {/* <Card className="col-12 col-lg-6" >
+                    <CardContent>
 
-    return (
-        < div className="container pt-3" >
-            <div className="row justify-content-center">
-                <div className="card col-12 col-md-8 col-lg-6">
-                    <div className="card-body">
-                        <header className="d-flex justify-content-between">
-                            <div className="flex-grow-1">
-                                <small className="text-muted">{app.appName} {app.appRelease}</small>
-                                <h3>Acesso</h3>
-                            </div>
+                        <section>
+                            <header className="d-flex justify-content-between">
+                                <div className="flex-grow-1">
+                                    <small><i className={app.appFaIcon}></i>  {app.appName} {app.appRelease}</small>
+                                    <h3>Acesso</h3>
+                                </div>
 
-                            <DarkMode />
-                        </header>
+                                <ThemeSwitch />
+                            </header>
 
-                        <hr />
-                        <form onSubmit={onSubmitForm}>
-                            <div className="mb-2">
-                                <label htmlFor="login" className="form-label">Login</label>
-                                <input type="text" className="form-control" id="login" name="login" required onChange={handleChange} />
-                            </div>
+                            <form onSubmit={handleSubmit}>
+                                <div className="mb-2 mt-4">
+                                    <TextField id="login" label="Login" variant="standard" name='login' sx={{ width: '100%' }} />
+                                </div>
 
-                            <div className="mb-2">
-                                <label htmlFor="password" className="form-label">Senha</label>
-                                <input type="password" className="form-control" id="password" name="password" onChange={handleChange} />
-                            </div>
+                                <div className="mt-4 mb-2">
+                                    <TextField type='password' id="password" label="Senha" variant="standard" name='password' sx={{ width: '100%' }} />
 
+                                </div>
 
-                            <button type="submit" className="btn btn-primary mt-3">Entrar</button>
-                        </form>
-                    </div>
-                </div>
+                                <div className="mt-4">
+                                    <Button variant="contained" color="primary" type='submit'>Entrar</Button>
+                                </div>
+                            </form>
+                        </section>
+                    </CardContent>
+                </Card> */}
+
+                <Alert severity='error'><b>Aviso:</b> Essa é uma branch de reset. Ocorreu um erro e o código da versão <b>1.00.1042-pre-alpha2</b> foi perdido e não foi possivel a sua recuperação.
+                    <br />Todos os recursos estão desabilitados. Pedimos desculpas pelo incoveniente. Em breve a nova versão Alpha 2 estará disponível
+                </Alert>
             </div>
         </div >
-    );
+
+    </>);
 }
 
 
-Login.layout = page => <Layout children={page} />
+
 
 export default Login;

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use PhpParser\Node\Stmt\Return_;
 
 class LoginController extends Controller
 {
@@ -23,7 +22,7 @@ class LoginController extends Controller
 
         if (Auth::attempt(["login" => $login, "password" => $password])) {
             $request->session()->regenerate();
-            return redirect()->intended(route('admin.index'))->with('success', 'Bem vindo');
+            return redirect()->intended(route('admin.home'))->with('success', 'Bem vindo');
         } else {
             return redirect()->back()->withErrors('Usuário e/ou senha incorretos');
         }

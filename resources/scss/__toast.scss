@@ -1,9 +1,13 @@
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+@import "../../node_modules/bootstrap/scss/variables";
+
 .custom-toast {
     background-color: rgba(255,255,255, 0.2) !important;
     backdrop-filter: blur(10px) !important;
 }
 
-
-[data-bs-theme="dark"] .custom-toast {
-    color: #fff;
+@include color-mode(dark) {
+    .custom-toast {
+        color: #ffff !important;
+    }
 }

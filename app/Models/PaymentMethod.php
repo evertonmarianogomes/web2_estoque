@@ -5,9 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class PaymentMethod extends Model
 {
     use HasFactory;
+
+    protected $table = 'payment_methods';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -15,16 +18,6 @@ class Category extends Model
      */
     protected $fillable = [
         'name',
-        'description',
+        'is_available',
     ];
-
-    protected $attributes = array(
-        'description' => 'Descrição',
-    );
-
-
-    public function products()
-    {
-        return $this->hasMany('App\Models\Product');
-    }
 }

@@ -1,4 +1,24 @@
-- v.1.00.1040-alpha1 (main)
+## Histórico de Alterações
+
+- v1.00.1050-alpha2 (main)
+ - Primeira versão post-reset
+
+
+- v1.00.1042-pre-alpha2 (fn_dev)
+ - Build de Reset
+
+
+- v1.00.1041-alpha1 (fn_dev)
+  - Alterado o Navbar para a lateral
+  - Alterações menores
+
+- v1.00.1037-alpha1 (fn_dev)
+  - commit
+
+- v.1.00.1036-alpha1 (fn_dev)
+  - Correções Menores
+
+- v.1.00.1035-alpha1 (fn_dev)
  - Adicionar e remover produtos do carrinho na tela de vendas
  - Removido fundo da tela de login
 

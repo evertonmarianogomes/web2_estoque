@@ -12,7 +12,6 @@
         "inertiajs/inertia-laravel": "^1.0",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
-        "mercadopago/dx-php": "^3.0",
         "spatie/laravel-permission": "^6.7",
         "tightenco/ziggy": "^2.1"
     },
