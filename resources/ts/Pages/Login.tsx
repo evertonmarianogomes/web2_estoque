@@ -1,6 +1,6 @@
 // MD Sales View
-import React, { useState, useEffect } from 'react';
-import { Card, CardContent, Box, CardActions, Button, Typography } from '@mui/material';
+import React from 'react';
+import { Card, CardContent, Button, Alert } from '@mui/material';
 import { router } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import TextField from '@mui/material/TextField';
@@ -12,21 +12,24 @@ const Login = (props) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        let formData = new FormData(e.target as HTMLFormElement);
-        let data = {
-            login: formData.get('login'),
-            password: formData.get('password')
-        }
 
-        router.post(route('app.validateLogin'), data);
+        alert('O login está desabilitado');
+        // let formData = new FormData(e.target as HTMLFormElement);
+        // let data = {
+        //     login: formData.get('login'),
+        //     password: formData.get('password')
+        // }
+
+        // router.post(route('app.validateLogin'), data);
 
     }
 
     return (<>
         <div className="container pt-3">
             <div className="d-flex mt-3 gap-3 flex-wrap justify-content-center">
-                <Card className="col-12 col-lg-6" >
+                {/* <Card className="col-12 col-lg-6" >
                     <CardContent>
+
                         <section>
                             <header className="d-flex justify-content-between">
                                 <div className="flex-grow-1">
@@ -52,17 +55,12 @@ const Login = (props) => {
                                 </div>
                             </form>
                         </section>
-
-                        <CardActions>
-
-                            {/* <Button variant="contained" color="primary" onClick={() => router.visit(route('sales.create'))}>Entrar</Button> */}
-                        </CardActions>
                     </CardContent>
+                </Card> */}
 
-
-                </Card>
-
-
+                <Alert severity='error'><b>Aviso:</b> Essa é uma branch de reset. Ocorreu um erro e o código da versão <b>1.00.1042-pre-alpha2</b> foi perdido e não foi possivel a sua recuperação.
+                    <br />Todos os recursos estão desabilitados. Pedimos desculpas pelo incoveniente. Em breve a nova versão Alpha 2 estará disponível
+                </Alert>
             </div>
         </div >
 

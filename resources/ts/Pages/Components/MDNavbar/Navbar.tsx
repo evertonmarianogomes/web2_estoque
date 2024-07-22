@@ -11,14 +11,15 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { route } from 'ziggy-js';
-import { router } from '@inertiajs/react';
+
 
 import ThemeSwitch from '../ThemeSwitch';
 import { pages } from './Items';
 
 function ResponsiveAppBar(props: any) {
     const { user, app } = props;
+
+    const { router, route } = window;
 
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);

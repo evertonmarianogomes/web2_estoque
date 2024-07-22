@@ -12,6 +12,10 @@ class AppController extends Controller
 {
     public function login(Request $request)
     {
+
+        abort(403);
+
+
         if (Auth::check()) {
             return redirect()->route('admin.home')->with('message', 'Bem vindo');
         } else {
@@ -41,22 +45,4 @@ class AppController extends Controller
     {
         return Inertia::render('Admin/EditUser', ['title' => 'Editar usuário - ' . env('APP_NAME')]);
     }
-
-    // public function getCode(Request $request)
-    // {
-    //     $amount = (float) $request->amount;
-
-    //     $pixController = new PixController();
-    //     $description = 'Louvorzao 2024';
-    //     $merchantName = 'Pizzaria Web 2';
-    //     $merchantCity = 'Campo Grande';
-    //     $referenceLabel = 'ID123456';
-
-    //     $payload = $pixController->montaPayload($description, $amount, $merchantName, $merchantCity, $referenceLabel);
-
-    //     $qrcode = new QRCode();
-    //     $qrImage = $qrcode->render($payload);
-
-    //     return json_encode(['qrCode' => $qrImage, 'payload' => $payload]);
-    // }
 }

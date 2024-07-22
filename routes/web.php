@@ -2,12 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AppController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\Report\ReportController;
-use App\Http\Controllers\SaleController;
-use App\Http\Controllers\StockController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\PreventBackHistory;
 
@@ -28,11 +23,6 @@ Route::prefix('admin')->middleware(['auth', PreventBackHistory::class])->group(f
 
     Route::resources([
         'users' => UserController::class,
-        'stock' => StockController::class,
-        'categories' => CategoryController::class,
-        'products' => ProductController::class,
-        'sales' => SaleController::class,
-        'reports' => ReportController::class
     ]);
 
 

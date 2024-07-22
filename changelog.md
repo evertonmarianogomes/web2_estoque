@@ -1,8 +1,7 @@
 ## Histórico de Alterações - fn_dev
 
 - v1.00.1042-pre-alpha2 (fn_dev)
-  - Alteração da interface do sistema
-  - Pré-alpha-2
+ - Build de Reset
 
 
 - v1.00.1041-alpha1 (fn_dev)
