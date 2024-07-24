@@ -2,22 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
-
 
 class AppController extends Controller
 {
     public function login(Request $request)
     {
-
-        abort(403);
-
-
         if (Auth::check()) {
-            return redirect()->route('admin.home')->with('message', 'Bem vindo');
+            return redirect()->route('admin.home');
         } else {
             return Inertia::render("Login", ["title" => "Login - " . env('APP_NAME')]);
         }

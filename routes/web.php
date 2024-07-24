@@ -5,6 +5,8 @@ use App\Http\Controllers\AppController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\PreventBackHistory;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 
 Route::get('/', [AppController::class, 'login'])->name('app.home');
 
@@ -20,9 +22,12 @@ Route::prefix('admin')->middleware(['auth', PreventBackHistory::class])->group(f
     Route::get('/hello', [AppController::class, 'HelloWorld'])->name('admin.helloworld');
     Route::get('/about', [AppController::class, 'About'])->name('app.about');
 
+    Route::get('/categories/{id}/products', [CategoryController::class, 'getProductsByCategory'])->name('categories.products');
 
     Route::resources([
         'users' => UserController::class,
+        'categories' => CategoryController::class,
+        'products' => ProductController::class
     ]);
 
 

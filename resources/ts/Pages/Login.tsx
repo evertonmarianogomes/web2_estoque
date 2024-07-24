@@ -12,22 +12,20 @@ const Login = (props) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        let formData = new FormData(e.target as HTMLFormElement);
+        let data = {
+            login: formData.get('login'),
+            password: formData.get('password')
+        }
 
-        alert('O login está desabilitado');
-        // let formData = new FormData(e.target as HTMLFormElement);
-        // let data = {
-        //     login: formData.get('login'),
-        //     password: formData.get('password')
-        // }
-
-        // router.post(route('app.validateLogin'), data);
+        router.post(route('app.validateLogin'), data);
 
     }
 
     return (<>
         <div className="container pt-3">
             <div className="d-flex mt-3 gap-3 flex-wrap justify-content-center">
-                {/* <Card className="col-12 col-lg-6" >
+                <Card className="col-12 col-lg-6" >
                     <CardContent>
 
                         <section>
@@ -56,10 +54,10 @@ const Login = (props) => {
                             </form>
                         </section>
                     </CardContent>
-                </Card> */}
+                </Card>
 
                 <Alert severity='error'><b>Aviso:</b> Essa é uma branch de reset. Ocorreu um erro e o código da versão <b>1.00.1042-pre-alpha2</b> foi perdido e não foi possivel a sua recuperação.
-                    <br />Todos os recursos estão desabilitados. Pedimos desculpas pelo incoveniente. Em breve a nova versão Alpha 2 estará disponível
+                    Pedimos desculpas pelo incoveniente. Em breve a nova versão Alpha 2 estará disponível
                 </Alert>
             </div>
         </div >

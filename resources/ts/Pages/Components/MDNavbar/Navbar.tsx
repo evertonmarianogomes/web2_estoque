@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -21,8 +21,8 @@ function ResponsiveAppBar(props: any) {
 
     const { router, route } = window;
 
-    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+    const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+    const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -42,7 +42,8 @@ function ResponsiveAppBar(props: any) {
     return (
         <AppBar position="fixed" color="transparent" sx={{
             backdropFilter: 'blur(10px)',
-            zIndex: 1
+            zIndex: 1,
+            boxShadow: 'none'
         }}
         >
             <Container maxWidth="lg">
@@ -100,10 +101,11 @@ function ResponsiveAppBar(props: any) {
                             }}
                         >
                             {pages.map((page, index) => (
-                                <MenuItem key={index} onClick={handleCloseNavMenu} >
-                                    <Typography textAlign="center" onClick={(e) => {
-                                        router.visit(page.link);
-                                    }}>{page.name}</Typography>
+                                <MenuItem key={index} onClick={(e) => {
+                                    router.visit(page.link);
+                                    handleCloseNavMenu();
+                                }} >
+                                    <Typography textAlign="center">{page.name}</Typography>
                                 </MenuItem>
                             ))}
 

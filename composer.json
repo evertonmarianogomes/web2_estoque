@@ -11,6 +11,7 @@
         "endroid/qr-code": "^5.0",
         "inertiajs/inertia-laravel": "^1.0",
         "laravel/framework": "^11.0",
+        "laravel/octane": "^2.4",
         "laravel/tinker": "^2.9",
         "spatie/laravel-permission": "^6.7",
         "tightenco/ziggy": "^2.1"

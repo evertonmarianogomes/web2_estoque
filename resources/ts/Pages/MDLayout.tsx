@@ -9,8 +9,30 @@ import { ToastContainer, toast } from 'react-toastify';
 export const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
 
 const MDLayout = ({ children }) => {
-    const { title, user, app, flash, errors } = usePage().props as any;
+    const { title, user, app, errors, flash } = usePage().props as any;
     const [mode, setMode] = useState<'light' | 'dark'>('light');
+
+
+    useEffect(() => {
+        if (flash?.success) {
+            toast.success(flash?.success, { className: 'custom-toast' });
+        }
+
+        if (flash?.message) {
+            toast.info(flash?.message, { className: 'custom-toast' });
+        }
+    }, [flash]);
+
+
+    useEffect(() => {
+        if (errors && Array.isArray(errors)) {
+            errors?.map((error) => {
+                toast.error(error, { className: 'custom-toast' });
+            });
+        } else {
+            toast.error(errors, { className: 'custom-toast' });
+        }
+    }, [errors]);
 
     const colorMode = React.useMemo(
         () => ({
@@ -61,14 +83,6 @@ const MDLayout = ({ children }) => {
 
     }, []);
 
-    useEffect(() => {
-        if (flash?.message) {
-            toast.info(flash?.message, { className: 'custom-toast' });
-        } else if (flash?.success) {
-            toast.success(flash?.success, { className: 'custom-toast' });
-        }
-    }, [flash]);
-
 
     useEffect(() => {
         if (errors) {
@@ -84,17 +98,18 @@ const MDLayout = ({ children }) => {
             <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <Head title={title} />
-                <ToastContainer style={{ zIndex: 4 }} />
+                <ToastContainer style={{ zIndex: 5 }} />
 
                 {user && <ResponsiveAppBar context={ColorModeContext} user={user} app={app} />}
 
                 {user && <div style={{ paddingTop: '4rem' }}></div>}
+
                 {children}
 
-                <section style={{ width: '100%', padding: '1rem', textAlign: 'center' }}>
-                    <p> &copy; {app.appName} <small>{app.appRelease}</small></p>
-                    <p>For testing purposes only. Version {app.appVersion}</p>
-                </section>
+                <code className="d-flex flex-wrap mt-5">
+                    <p className='col-12 text-center'> &copy; {app.appName} <small>{app.appRelease}</small></p>
+                    <p className='col-12 text-center'>For testing purposes only. Version {app.appVersion}</p>
+                </code>
             </ThemeProvider>
         </ColorModeContext.Provider>
 

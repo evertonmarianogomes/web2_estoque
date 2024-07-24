@@ -1,9 +1,5 @@
-import { route } from 'ziggy-js';
-
+const { route } = window;
 
 export const pages = [
-    { name: 'Estoque', link: route('stock.index') },
-    { name: 'Vendas', link: route('sales.index') },
-    { name: 'Sobre', link: route('app.about') },
-    { name: 'HelloWorld', link: route('admin.helloworld') }
+    { name: 'Categorias', link: route('categories.index') }
 ];

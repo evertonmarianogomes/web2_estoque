@@ -10,6 +10,7 @@ import 'alertifyjs/build/css/alertify.min.css';
 import 'alertifyjs/build/css/themes/default.min.css';
 import MDLayout from './Pages/MDLayout';
 
+
 createInertiaApp({
   title: title => `${title}`,
   resolve: name => {
