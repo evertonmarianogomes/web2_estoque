@@ -13,7 +13,8 @@ class AppController extends Controller
         if (Auth::check()) {
             return redirect()->route('admin.home');
         } else {
-            return Inertia::render("Login", ["title" => "Login - " . env('APP_NAME')]);
+            // return Inertia::render("Login", ["title" => "Login - " . env('APP_NAME')]);
+            return view('login');
         }
     }
 
@@ -26,11 +27,6 @@ class AppController extends Controller
     public function home(Request $request)
     {
         return Inertia::render('Admin/Home', ["title" => "Home - " . env('APP_NAME')]);
-    }
-
-    public function About(Request $request)
-    {
-        return Inertia::render('Admin/About', ["title" => "Sobre - " . env('APP_NAME')]);
     }
 
 

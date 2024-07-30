@@ -1,13 +1,15 @@
-import './bootstrap';
+import './bootstrap.ts';
 import { createInertiaApp } from '@inertiajs/react';
-import React from 'react';
 import { createRoot } from 'react-dom/client';
+
+import React from 'react';
 import "bootstrap";
-import '../scss/__toast.scss';
+import '../scss/style.scss';
 import 'react-toastify/dist/ReactToastify.css';
-import "bootstrap/dist/css/bootstrap.min.css";
 import 'alertifyjs/build/css/alertify.min.css';
 import 'alertifyjs/build/css/themes/default.min.css';
+
+
 import MDLayout from './Pages/MDLayout';
 
 

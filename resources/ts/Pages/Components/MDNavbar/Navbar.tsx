@@ -1,24 +1,12 @@
 import React, { useState } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
 
-
+import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Button, Tooltip, MenuItem } from '@mui/material';
+import { LGNavbarItems, MobileNavbarItems } from './NavbarItems';
+import { Menu as MenuIcon } from '@mui/icons-material';
 import ThemeSwitch from '../ThemeSwitch';
-import { pages } from './Items';
 
-function ResponsiveAppBar(props: any) {
+export default function Navbar(props: any) {
     const { user, app } = props;
-
     const { router, route } = window;
 
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -55,7 +43,9 @@ function ResponsiveAppBar(props: any) {
                         href={route('app.home')}
                         onClick={(e) => {
                             e.preventDefault();
-                            router.visit(e.currentTarget.href);
+                            if (window.location.href != route('sales.create')) {
+                                router.visit(e.currentTarget.href);
+                            }
                         }}
                         sx={{
                             mr: 2,
@@ -82,6 +72,7 @@ function ResponsiveAppBar(props: any) {
                         >
                             <MenuIcon />
                         </IconButton>
+
                         <Menu
                             id="menu-appbar"
                             anchorEl={anchorElNav}
@@ -100,16 +91,7 @@ function ResponsiveAppBar(props: any) {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {pages.map((page, index) => (
-                                <MenuItem key={index} onClick={(e) => {
-                                    router.visit(page.link);
-                                    handleCloseNavMenu();
-                                }} >
-                                    <Typography textAlign="center">{page.name}</Typography>
-                                </MenuItem>
-                            ))}
-
-                            <MenuItem><ThemeSwitch /></MenuItem>
+                            <MobileNavbarItems handleCloseNavMenu={handleCloseNavMenu} app={app} />
                         </Menu>
                     </Box>
 
@@ -128,21 +110,13 @@ function ResponsiveAppBar(props: any) {
                             textDecoration: 'none',
                             cursor: 'pointer'
                         }}
-                        onClick={(e) => { router.visit(route('app.home')) }}
+                        onClick={() => router.visit(route('app.home'))}
                     >
                         Home
                     </Typography>
 
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {/*  Main - Navbar */}
+                    <LGNavbarItems app={app} />
 
-                        {pages.map((item, index) => (
-                            <Button key={index} sx={{ my: 2, color: 'inherit', display: 'block' }} data-url={item.link} onClick={(e) => {
-                                router.visit((e.target as HTMLElement).dataset.url)
-                            }}>{item.name}</Button>
-                        ))}
-                        {/*  End Main - Navbar */}
-                    </Box>
 
                     {/* End Box */}
                     <Box sx={{ mr: "1rem", flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
@@ -150,6 +124,7 @@ function ResponsiveAppBar(props: any) {
                             <ThemeSwitch />
                         </Button>
                     </Box>
+
 
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
@@ -175,10 +150,10 @@ function ResponsiveAppBar(props: any) {
                         >
                             <MenuItem onClick={() => {
                                 if (confirm('Certeza que deseja encerrar a sessão?')) {
-                                    router.visit(route('admin.logout'));
+                                    window.location.href = route('admin.logout');
                                 }
                                 handleCloseUserMenu();
-                            }}>
+                            }} disabled={window.location.href === route('sales.create')}>
                                 <Typography textAlign="center">Logout</Typography>
                             </MenuItem>
                         </Menu>
@@ -188,4 +163,4 @@ function ResponsiveAppBar(props: any) {
         </AppBar>
     );
 }
-export default ResponsiveAppBar;
+

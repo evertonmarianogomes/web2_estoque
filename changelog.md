@@ -6,7 +6,6 @@
 - v1.00.1042-pre-alpha2 (fn_dev)
  - Build de Reset
 
-
 - v1.00.1041-alpha1 (fn_dev)
   - Alterado o Navbar para a lateral
   - Alterações menores

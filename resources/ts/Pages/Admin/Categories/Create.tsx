@@ -31,7 +31,7 @@ export default function Create(props: any) {
 
 
     return (<>
-        <Tooltip title='Adicionar produto' placement="left">
+        <Tooltip title='Nova categoria' placement="left">
             <Fab color="primary" aria-label="add" sx={{ position: 'absolute', zIndex: 1, bottom: 20, right: 20 }} onClick={handleClickOpen}>
                 <Add />
             </Fab>

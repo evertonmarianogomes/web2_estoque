@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from "react";
-import $ from 'jquery';
+import React, { useState, useEffect, createContext } from "react";
 import { Head, usePage } from "@inertiajs/react";
-import ResponsiveAppBar from "./Components/MDNavbar/Navbar";
+import Navbar from "./Components/MDNavbar/Navbar";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ToastContainer, toast } from 'react-toastify';
 
-export const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
+
+export const ColorModeContext = createContext({ toggleColorMode: () => { } });
 
 const MDLayout = ({ children }) => {
     const { title, user, app, errors, flash } = usePage().props as any;
     const [mode, setMode] = useState<'light' | 'dark'>('light');
-
 
     useEffect(() => {
         if (flash?.success) {
@@ -100,7 +99,7 @@ const MDLayout = ({ children }) => {
                 <Head title={title} />
                 <ToastContainer style={{ zIndex: 5 }} />
 
-                {user && <ResponsiveAppBar context={ColorModeContext} user={user} app={app} />}
+                {user && <Navbar user={user} app={app} />}
 
                 {user && <div style={{ paddingTop: '4rem' }}></div>}
 

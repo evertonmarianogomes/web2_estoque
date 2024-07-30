@@ -36,6 +36,11 @@ class CategoryController extends Controller
         return $category->products();
     }
 
+    public function getAllCategories()
+    {
+        return Category::all();
+    }
+
     /**
      * Store a newly created resource in storage.
      */

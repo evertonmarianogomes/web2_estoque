@@ -15,12 +15,13 @@ class Product extends Model
     protected $fillable = ['name', 'description', 'price', 'quantity', 'category_id'];
 
 
-    public function getProductsWithCategory()
+    public static function getProductsWithCategory()
     {
         return DB::table('products')
             ->join('categories', 'products.category_id', '=', 'categories.id')
-            ->select('products.*, categories.name as category_name')
-            ->where('products.id', '=', (int) $this->id)
+            ->join('responsibles', 'products.responsible_id', '=', 'responsibles.id')
+            ->select('products.*',  'categories.name as category_name', 'responsibles.name as responsible_name')
+            ->orderBy('id', 'ASC')
             ->get();
     }
 }
