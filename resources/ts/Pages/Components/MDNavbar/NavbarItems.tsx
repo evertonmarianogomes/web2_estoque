@@ -13,11 +13,9 @@ export const LGNavbarItems = (props: any) => {
     return (
         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((item, index) => (
-                window.route('sales.create') != window.location.href ?
-                    <Link href={item?.link} key={index} style={{ color: 'inherit', textDecoration: 'none' }}>
-                        <Button sx={{ my: 2, color: 'inherit', display: 'block' }} className={(isActive(item?.link)) ? 'active' : ''} >{item?.name}</Button>
-                    </Link> :
-                    <Button sx={{ my: 2, color: 'inherit', display: 'block' }} disabled key={index}>{item?.name}</Button>
+                <Link href={item?.link} key={index} style={{ color: 'inherit', textDecoration: 'none' }}>
+                    <Button sx={{ my: 2, color: 'inherit', display: 'block' }} className={(isActive(item?.link)) ? 'active' : ''} >{item?.name}</Button>
+                </Link>
             ))}
 
             <About type='lg' app={props.app} />
@@ -34,7 +32,7 @@ export const MobileNavbarItems = (props: any) => {
 
     return (<>
         {pages.map((item, index) => (
-            <MenuItem key={index} onClick={() => handleClick(item?.link)} disabled={window.location.href == window.route('sales.create')}>
+            <MenuItem key={index} onClick={() => handleClick(item?.link)}>
                 <Typography textAlign={'center'}>{item?.name}</Typography>
             </MenuItem>
         ))}

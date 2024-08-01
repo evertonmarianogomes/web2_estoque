@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { usePage, Link } from '@inertiajs/react';
 import { Button, Tooltip, Paper } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
@@ -16,7 +16,7 @@ export type CreateProps = {
 
 const Create = () => {
     const { props } = usePage() as any;
-    const { route, router, axios } = window;
+    const { route, router } = window;
 
     /** Cart/Products Props and States */
     const [cart, setCart] = useState([]);
@@ -25,27 +25,15 @@ const Create = () => {
 
     const addProductToCart = (product: any) => {
         findInCart(product?.id) ? addToCartIfExists(product) : addToCart(product);
-
-        axios.post(route('products.quantity', { id: product?.id }), {
-            opearation: 'decrement',
-            quantity: product?.quantity
-        }).then(resp => resp.data).then((resp) => {
-            setQuantity(product?.id, product?.quantity);
-        });
+        setQuantity(product?.id, product?.quantity);
 
     }
 
     const removeProductToCart = (product: any) => {
         setCart(cart => cart.filter(item => item.id != product?.id));
-
-        axios.post(route('products.quantity', { id: product?.id }), {
-            operation: 'increment',
-            quantity: product?.quantity
-        }).then(resp => resp.data).then((resp) => {
-            setQuantity(product?.id, product?.quantity, 'increment');
-            setCartAmount(cartAmount => cartAmount - product?.amount);
-            toast.success('Produto removido do carrinho com sucesso', { className: 'custom-toast' });
-        });
+        setQuantity(product?.id, product?.quantity, 'increment');
+        setCartAmount(cartAmount => cartAmount - product?.amount);
+        toast.success('Produto removido do carrinho com sucesso', { className: 'custom-toast' });
     }
 
     const findInCart = (id: number) => {
@@ -58,20 +46,18 @@ const Create = () => {
     }
 
     const resetCart = () => {
-        let filteredCart = cart.map(({ id, quantity }) => ({ id, quantity }));
+        router.reload({ only: ['products'] });
+        setCart([]);
+        setCartAmount(0);
+        setProducts(props?.products);
 
-        axios.post(route('products.quantityAll'), {
-            data: filteredCart
-        }).then(resp => resp.status).then(resp => {
-            if (resp == 200) {
-                router.reload({ only: ['products'] });
-                setCart([]);
-                setCartAmount(0);
-                setProducts(props?.products);
+        toast.info('Carrinho limpo com sucesso', { className: 'custom-toast' });
+    }
 
-                toast.info('Carrinho limpo com sucesso', { className: 'custom-toast' });
-            }
-        });
+    const finishSale = () => {
+        router.reload();
+        setCart([]);
+        setCartAmount(0);
     }
 
     const addToCartIfExists = (product: any) => {
@@ -100,11 +86,11 @@ const Create = () => {
 
     return (<div className='container-fluid pt-2'>
         <div className="col-12 d-flex gap-3">
-            {cart.length == 0 && <Tooltip title='Voltar para vendas'>
+            <Tooltip title='Voltar para vendas'>
                 <Link href={route('sales.index')}>
                     <Button variant='contained' color='secondary'><ArrowBack /></Button>
                 </Link>
-            </Tooltip>}
+            </Tooltip>
             <h4>Nova venda</h4>
         </div>
         <div className="d-flex flex-wrap gap-3">
@@ -120,7 +106,7 @@ const Create = () => {
                     <h4 style={{ flexGrow: 1 }}>Carrinho</h4>
 
                     <Button variant='contained' color='secondary' onClick={resetCart} disabled={cart.length == 0}>Reset Cart</Button>
-                    <Finish cart={cart} amount={cartAmount} />
+                    <Finish cart={cart} amount={cartAmount} handleFinish={finishSale} />
                 </div>
 
                 <p>Total: <b>{formatToBRL(cartAmount)}</b> </p>

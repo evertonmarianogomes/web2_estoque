@@ -6,19 +6,20 @@
 @import '../../node_modules/@fontsource/roboto/700.css';
 
 
-
 $bg_color: rgba(18, 20, 20, 0.35);
 
-* {
+body,
+div#app {
+    height: 100vh;
     font-family: 'Roboto', sans-serif;
 }
 
-body, div#app {
-    height: 100vh;
-}
-
-.ajs-modal{
+.ajs-modal {
     backdrop-filter: blur(15px);
 }
 
 
+#loader_container,
+code {
+    font-family: system-ui !important;
+}

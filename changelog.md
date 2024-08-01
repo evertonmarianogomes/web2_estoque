@@ -1,5 +1,9 @@
 ## Histórico de Alterações - fn_dev
 
+- v1.00.1052-alpha2 (fn_dev)
+  - Crud de Produtos concluída 
+  - Interface e lógica de registro de vendas concluída
+
 - v1.00.1051-alpha2 (fn_dev)
   - Crud de Categorias concluída 
 

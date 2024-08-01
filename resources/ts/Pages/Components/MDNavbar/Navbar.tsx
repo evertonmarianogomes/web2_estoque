@@ -153,7 +153,7 @@ export default function Navbar(props: any) {
                                     window.location.href = route('admin.logout');
                                 }
                                 handleCloseUserMenu();
-                            }} disabled={window.location.href === route('sales.create')}>
+                            }} >
                                 <Typography textAlign="center">Logout</Typography>
                             </MenuItem>
                         </Menu>

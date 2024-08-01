@@ -6,8 +6,8 @@ import CurrencyInput from 'react-currency-masked-input';
 import ReactDOMServer from 'react-dom/server';
 import alertify from 'alertifyjs';
 
-const Finish = ({ cart, amount }) => {
-    const { axios, route } = window;
+const Finish = ({ cart, amount, handleFinish }) => {
+    const { axios, route, router } = window;
 
     const [open, setOpen] = useState(false);
     const [remaining, setRemaining] = useState<number>();
@@ -44,13 +44,23 @@ const Finish = ({ cart, amount }) => {
 
     const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // alert('Em construção');
-        console.dir({
+
+        let data = {
             clientName: new FormData(e.currentTarget).get('client_name'),
             saleTotalPaid: total,
             saleAmount: amount,
             products: cart,
             paymentList,
+        };
+
+        router.post(route('sales.store'), data, {
+            onFinish: () => {
+                handleClose();
+            },
+            onSuccess: () => {
+                handleFinish();
+                handleClose();
+            }
         });
     }
 
